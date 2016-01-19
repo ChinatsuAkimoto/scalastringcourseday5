@@ -181,6 +181,7 @@ class Day5TestSuite extends AssertionsForJUnit {
   def testStringJoin1(): Unit = {
     val array = Array[String]("abc", "cde", "efg")
     assert(String.join(", ", array: _*) == "abc, cde, efg")
+    assert(String.join(", ", array: _*).mkString("[", "", "]") == "[abc, cde, efg]")
   }
 
   @Test
@@ -188,6 +189,7 @@ class Day5TestSuite extends AssertionsForJUnit {
     val array = Array[String]("abc", "cde", "efg")
     val iterable: java.lang.Iterable[String] = scala.collection.JavaConversions.asJavaIterable(array.toIterable)
     assert(String.join(", ", iterable) == "abc, cde, efg")
+    assert(String.join(", ", iterable).mkString("[", "", "]") == "[abc, cde, efg]")
   }
 
   private val utf8ByteArray1ForBufferTest: Array[Byte] =
@@ -310,9 +312,9 @@ class Day5TestSuite extends AssertionsForJUnit {
     assert("%(d".format(-123) == "(123)")
     //3桁ごとカンマ付き10進数
     assert("%,d".format(12345) == "12,345")
-    //pad（0埋め）
-    assert("%05d".format(123) == "00123")
-//    "".padTo
+    //0埋め
+    assert("%05d".format(123) == "00123") //prepend
+    assert(123.toString.padTo(5, '0') == "12300") //padToはappend
     //16進数
     assert("%x".format(123) == "7b")
     //16進数代替フォーム
@@ -359,13 +361,16 @@ class Day5TestSuite extends AssertionsForJUnit {
     assert("%f".format(math.Pi) == "3.141593")
     assert("%g".format(math.Pi) == "3.14159")
     assert("%a".format(math.Pi) == "0x1.921fb54442d18p1")
-    //日付・時刻
-    printf("%1$tY年%1$tm月%1$td日\n", new Date())
-    //ハッシュコード（16進数）
-    printf("%h\n", new Object())
     //OS非依存の改行文字
     //Unix: \n
     //Windows: \r\n
     printf("%n")
+    //日付・時刻
+    printf("%1$tY年%1$tm月%1$td日%tA\n", new Date())
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, new Date()))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, new Date()))
+    //ハッシュコード（16進数）
+    printf("%h\n", new Object())
+
   }
 }
