@@ -404,6 +404,26 @@
     }
 ```
 
+```scala
+  @Test
+  def testDateTimeFormatter(): Unit = {
+    val zonedDateTime: ZonedDateTime = ZonedDateTime.now
+    val tdf: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+    println(tdf.format(zonedDateTime))
+    println(zonedDateTime.format(tdf))
+
+    val localDate1: LocalDate = LocalDate.parse("2016/01/01", tdf)
+    val date1: Date = Date.from(localDate1.atStartOfDay(ZoneOffset.UTC).toInstant)
+
+    val ta: TemporalAccessor = tdf.parse("2016/01/01")
+    val localDate2: LocalDate = LocalDate.from(ta)
+    val date2: Date = Date.from(localDate2.atStartOfDay(ZoneOffset.of("+09:00")).toInstant)
+
+    assert("%1$tY年%1$tm月%1$td日".format(date1) == "2016年01月01日")
+    assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
+  }
+```
+
 ```java
     /**
      * Sets the length of the character sequence.
