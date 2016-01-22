@@ -279,7 +279,7 @@ StringJoinerの中身はStringBuilderです。
 <img src="../image/string_course.012.jpeg" width="500px"><br>
 String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
 mkStringメソッドを組み合わせて使用することで、StringJoiner相当のことができます。
-String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。可変長引数に関するのJavaとScalaの間の互換性については、コラム：可変長引数に関するのJava/Scala互換性、コレクションに関するJavaとScalaの間の互換性については、コラム：コレクションに関するJava/Scala互換性を参照ください。
+String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。可変長引数に関するのJavaとScalaの間の互換性については、<a href="#コラム可変長引数に関するのjavascala互換性">コラム：可変長引数に関するのJava/Scala互換性</a>、コレクションに関するJavaとScalaの間の互換性については、<a href="#コラムコレクションに関するjavascala互換性">コラム：コレクションに関するJava/Scala互換性</a>を参照ください。
 ```scala
   @Test
   def testStringJoin1(): Unit = {
