@@ -373,10 +373,13 @@ StringBufferやStringBuilderはビルダーパターンで設計されていま�
 生成に必須なパラメタを引数に与えるコンストラクタの他に、必須なパラメタに加え任意のパラメタを引数に与えるコンストラクタをクラスに持たせます。
 任意のパラメタ数が増えれば増えるだけコンストラクタ数が増加するため、良くないパターン（アンチパターン）と考えられる場合もありますが、クラスが持つ変数をコンストラクタの中でのみいじれるようにすることでスレッドセーフなイミュータブルクラスを作成することができます。
 テレスコーピングとは、望遠鏡の筒のようにはめ込むという意味です。
-パラメタをコンストラクタにはめ込む（テレスコープする）のでテレスコーピングコンストラクタパターンと呼ばれているのだと思われます。
+パラメタをコンストラクタにはめ込む（テレスコープする）のでテレスコーピングコンストラクタパターンと呼ばれているのだと思います。
 <h4>（２）JavaBeansパターン</h4>
 引数なしのデフォルトコンストラクタにより生成し、setter/getterメソッドによって値の変更・取得を行います。
 Scalaには<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BeanProperty" target="_blank">@BeanProperty</a>や<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BooleanBeanProperty" target="_blank">@BooleanBeanProperty</a>アノテーションでクラス内のvar変数fieldNameに注釈付けることでsetter/getterメソッド（setFieldName/getFieldName、@BooleanBeanPropertyの場合はgetFieldNameの代わりにisFieldName）を自動挿入します。
+JavaBeansパターンではsetterメソッドが必要なため必ずミュータブルクラスになります。
+JavaBeansとは、Javaで書かれた移植可能なプラットフォームに依存しないコンポーネントモデルであり、<a href="http://download.oracle.com/otndocs/jcp/7224-javabeans-1.01-fr-spec-oth-JSpec/" target="_blank">JavaBean仕様</a>に従うもののことを指します。
+
 <h4>（３）ビルダーパターン</h4>
 まず、生成に必須なパラメタを引数に与えるコンストラクタによりビルダークラスを生成します。
 次に、ビルダークラスにsetterメソッドで任意のパラメタを設定します。
