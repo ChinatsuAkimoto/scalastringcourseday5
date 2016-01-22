@@ -299,6 +299,8 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 ***
 <h3>1.8　java.nio.Buffer</h3>
 <img src="../image/string_course.013.jpeg" width="500px"><br>
+java.nio.Bufferは主にBufferを継承したByteBuffer・CharBufferがエンコーダ・デコーダの内部で使用されます。
+StringBuilder・StringBufferではcapacityを超えてCharを追加しようとすると自動的にcapacityを増やしてくれますが、ByteBuffer・CharBufferではcapacityは増えずにオーバフローします。どの位置から読み込む/書き込むかというpositionとどの位置まで読み込める/書き込めるかというlimitを変化させながらデータを読み込んだり書き込んだりします。
 ```scala
   private val utf8ByteArray1ForBufferTest: Array[Byte] =
     for (byte <- Array[Int](
