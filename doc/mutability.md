@@ -249,7 +249,7 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 <img src="../image/string_course.011.jpeg" width="500px"><br>
 StringJoinerはデリミタ（区切り文字）と任意で接頭辞・接尾辞を設定して、文字列を結合するクラスです。
 addメソッドで文字列を追加し、toStringでStringを出力するビルダークラスです。
-例えば、CSV、SSV、TSVなどを作成する時に使えます。
+例えば、<a href="https://ja.wikipedia.org/wiki/Comma-Separated_Values" target="_blank">CSV、SSV、TSV</a>などを作成するときに有用です。
 StringJoinerの中身はStringBuilderです。
 ```scala
   @Test
