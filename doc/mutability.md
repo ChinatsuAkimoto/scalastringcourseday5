@@ -240,6 +240,8 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
     assert(str == "")
   }
 ```
+***
+<h3>1.6　StringJoiner</h3>
 <img src="../image/string_course.011.jpeg" width="500px"><br>
 ```scala
   @Test
@@ -264,6 +266,8 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
     assert(joiner.toString == "abc, cde, efg")
   }
 ```
+***
+<h3>1.7　String.joinメソッド</h3>
 <img src="../image/string_course.012.jpeg" width="500px"><br>
 ```scala
   @Test
@@ -281,6 +285,8 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
     assert(String.join(", ", iterable).mkString("[", "", "]") == "[abc, cde, efg]")
   }
 ```
+***
+<h3>java.nio.Buffer</h3>
 <img src="../image/string_course.013.jpeg" width="500px"><br>
 ```scala
   private val utf8ByteArray1ForBufferTest: Array[Byte] =
@@ -375,6 +381,7 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
     }
   }
 ```
+***
 <h3>コラム：テレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターン</h3>
 生成に関するデザインパターンにはテレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターンなどがあります。
 StringBufferやStringBuilderはビルダーパターンで設計されています。
