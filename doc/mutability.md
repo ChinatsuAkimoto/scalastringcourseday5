@@ -370,10 +370,14 @@
 生成に関するデザインパターンにはテレスコーピングパターン・JavaBeansパターン・ビルダーパターンなどがあります。
 StringBufferやStringBuilderはビルダーパターンで設計されています。
 <h4>（１）テレスコーピングパターン</h4>
-生成に必須なパラメタを引数に与えるコンストラクタの他に、任意のパラメタを引数に与えるコンストラクタをクラスに持たせます。
-任意のパラメタ数が増えれば増えるだけコンストラクタ数が増加するため、良くないパターン（アンチパターン）と考えられる場合もあります。
-クラスが持つ変数をコンストラクタの中でのみいじれるようにすることでスレッドセーフなイミュータブルクラスを作成することができます。
+生成に必須なパラメタを引数に与えるコンストラクタの他に、必須なパラメタに加え任意のパラメタを引数に与えるコンストラクタをクラスに持たせます。
+任意のパラメタ数が増えれば増えるだけコンストラクタ数が増加するため、良くないパターン（アンチパターン）と考えられる場合もありますが、クラスが持つ変数をコンストラクタの中でのみいじれるようにすることでスレッドセーフなイミュータブルクラスを作成することができます。
 <h4>（２）JavaBeansパターン</h4>
-引数なしのデフォルトコンストラクタにより生成し、setter/getterによって値の変更・取得を行います。
-Scalaには<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BeanProperty" target="_blank">@BeanProperty</a>や<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BooleanBeanProperty" target="_blank">@BooleanBeanProperty</a>アノテーションでクラス内のvar変数fieldNameに注釈付けることでsetter/getterメソッド（setFieldName/getFieldName、@BooleanBeanPropertyの場合はgetFieldNameの代わりにisFieldName）を自動挿入する。
+引数なしのデフォルトコンストラクタにより生成し、setter/getterメソッドによって値の変更・取得を行います。
+Scalaには<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BeanProperty" target="_blank">@BeanProperty</a>や<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BooleanBeanProperty" target="_blank">@BooleanBeanProperty</a>アノテーションでクラス内のvar変数fieldNameに注釈付けることでsetter/getterメソッド（setFieldName/getFieldName、@BooleanBeanPropertyの場合はgetFieldNameの代わりにisFieldName）を自動挿入します。
 <h4>（３）ビルダーパターン</h4>
+まず、生成に必須なパラメタを引数に与えるコンストラクタによりビルダークラスを生成します。
+次に、ビルダークラスにsetterメソッドで任意のパラメタを設定します。
+最後に、ビルダークラスのbuildメソッドにより、生成したいインスタンスを生成します。
+StringBuffer/StringBuilderはビルダーパターンで設計されています。
+StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoStringメソッド、生成したいインスタンスはStringです。
