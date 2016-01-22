@@ -297,7 +297,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
   }
 ```
 ***
-<h3>java.nio.Buffer</h3>
+<h3>1.8　java.nio.Buffer</h3>
 <img src="../image/string_course.013.jpeg" width="500px"><br>
 ```scala
   private val utf8ByteArray1ForBufferTest: Array[Byte] =
