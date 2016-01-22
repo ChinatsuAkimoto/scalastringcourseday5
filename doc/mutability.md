@@ -247,6 +247,10 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 ***
 <h3>1.6　StringJoiner</h3>
 <img src="../image/string_course.011.jpeg" width="500px"><br>
+StringJoinerはデリミタ（区切り文字）と任意で接頭辞・接尾辞を設定して、文字列を結合するクラスです。
+addメソッドで文字列を追加し、toStringでStringを出力するビルダークラスです。
+例えば、CSV、SSV、TSVなどを作成する時に使えます。
+StringJoinerの中身はStringBuilderです。
 ```scala
   @Test
   def testStringJoiner1(): Unit = {
@@ -273,6 +277,9 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 ***
 <h3>1.7　String.joinメソッド</h3>
 <img src="../image/string_course.012.jpeg" width="500px"><br>
+String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
+mkStringメソッドを組み合わせて使用することで、StringJoiner相当のことができます。
+String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。可変長引数に関するのJavaとScalaの間の互換性については、コラム：可変長引数に関するのJava/Scala互換性、コレクションに関するJavaとScalaの間の互換性については、コラム：コレクションに関するJava/Scala互換性を参照ください。
 ```scala
   @Test
   def testStringJoin1(): Unit = {
@@ -406,3 +413,7 @@ JavaBeansとは、Javaで書かれた移植可能なプラットフォームに�
 最後に、ビルダークラスのbuildメソッドにより、生成したいインスタンスを生成します。
 StringBuffer/StringBuilderはビルダーパターンで設計されています。
 StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoStringメソッド、生成したいインスタンスはStringです。
+***
+<h3>コラム：可変長引数に関するのJava/Scala互換性</h3>
+***
+<h3>コラム：コレクションに関するJava/Scala互換性</h3>
