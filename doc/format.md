@@ -1,7 +1,6 @@
 #2.　フォーマット
-<h3>2.1　フォーマット</h3>
 <img src="../image/string_course.014.jpeg" width="500px"><br>
-<h3>2.2　Stringのformatメソッド</h3>
+<h3>2.1　Stringのformatメソッド</h3>
 <img src="../image/string_course.015.jpeg" width="500px"><br>
 ```scala
   @Test
@@ -95,7 +94,7 @@
     printf("%h\n", new Object())
   }
 ```
-<h3>2.3　DateTimeFormatter</h3>
+<h3>2.2　DateTimeFormatter</h3>
 <img src="../image/string_course.016.jpeg" width="500px"><br>
 
 ```scala
@@ -117,5 +116,5 @@
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
   }
 ```
-<h3>2.4　テンプレートエンジン</h3>
+<h3>2.3　テンプレートエンジン</h3>
 <img src="../image/string_course.017.jpeg" width="500px"><br>
