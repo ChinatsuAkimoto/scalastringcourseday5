@@ -35,6 +35,7 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
     assert(str.concat("B") == "AB")
   }
 ```
+***
 <h3>1.5　StringBuffer/StringBuilder</h3>
 <img src="../image/string_course.006.jpeg" width="500px"><br>
 <img src="../image/string_course.007.jpeg" width="500px"><br>
