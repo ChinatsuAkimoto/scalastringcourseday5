@@ -105,7 +105,7 @@ printfスタイルの書式の定義は膨大なので、代表的な書式に�
 <h3>2.2　DateTimeFormatter</h3>
 <img src="../image/string_course.016.jpeg" width="500px"><br>
 DateTimeFormatterは日付・時刻に関するフォーマット及びバースの処理を扱うクラスです。
-タイムゾーン月の日付・時間クラスZonedDateTimeクラスを入力しフォーマットしたStringを返したり、Stringを入力としてパースしZonedDateTimeクラスを出力することができます。
+タイムゾーン付きの日付・時間クラス<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/time/ZonedDateTime.html" target="_blank">ZonedDateTime</a>クラスを入力しフォーマットしたStringを返したり、Stringを入力としてパースしZonedDateTimeクラスを出力することができます。
 String.formatではZonedDateTimeクラスではなくDateクラスを与えることでフォーマットすることができます。
 DateTimeFormatterと同様の処理をSimpleDateFormatで実現できますが、
 SimpleDateFormatはスレッドアンセーフでありながらスレッドセーフなDateTimeFormatterより処理速度が遅いためSimpleDateFormatの使用はお勧めできません。DateTimeFormatterはJava 8から導入されたためJava 7以前でスレッドセーフな日付・時刻フォーマッターが欲しい場合は、自作されるか、<a href="https://commons.apache.org/proper/commons-lang/" target="_blank">Apache Commons Lang</a>の<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/FastDateFormat.html" target="_blank">FastDateFormat</a>クラス、<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/FastDateParser.html" target="_blank">FastDateParser</a>クラス、<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/FastDatePrinter.html" target="_blank">FastDatePrinter</a>クラスを使用すると良いでしょう。
