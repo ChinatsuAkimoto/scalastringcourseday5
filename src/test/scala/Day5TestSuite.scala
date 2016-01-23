@@ -5,10 +5,15 @@ import java.nio.{ByteBuffer, CharBuffer}
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 import java.time.{LocalDate, ZoneOffset, ZonedDateTime}
-import java.util.{Date, StringJoiner}
+import java.util.concurrent.{ExecutorService, Executors}
+import java.util.{Calendar, Date, StringJoiner}
 
+import akka.actor._
 import org.junit.Test
 import org.scalatest.junit.AssertionsForJUnit
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 /**
   * @author ynupc
@@ -369,9 +374,18 @@ class Day5TestSuite extends AssertionsForJUnit {
     //Windows: \r\n
     printf("%n")
     //日付・時刻
-    printf("%1$tY年%1$tm月%1$td日%tA\n", new Date())
-    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, new Date()))
-    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, new Date()))
+    val date = new Date()
+    printf("%1$tY年%1$tm月%1$td日%tA\n", date)
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, date))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, date))
+    val calendar = Calendar.getInstance
+    printf("%1$tY年%1$tm月%1$td日%tA\n", calendar)
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, calendar))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, calendar))
+    val zonedDateTime = ZonedDateTime.now
+    printf("%1$tY年%1$tm月%1$td日%tA\n", zonedDateTime)
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, zonedDateTime))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, zonedDateTime))
     //ハッシュコード（16進数）
     printf("%h\n", new Object())
   }
@@ -392,5 +406,78 @@ class Day5TestSuite extends AssertionsForJUnit {
 
     assert("%1$tY年%1$tm月%1$td日".format(date1) == "2016年01月01日")
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
+  }
+
+  private class ObjectExample(private var data: Int) {
+    def increment(): Unit = {
+      synchronized[Unit] {
+        data += 1
+      }
+    }
+
+    def getData: Int = {
+      synchronized[Int] {
+        data
+      }
+    }
+  }
+
+  private val list: List[Int] = (0 to 3).toList
+  private val objectExample: ObjectExample = new ObjectExample(-1)
+
+  private class ThreadExample(name: String) extends Runnable {
+    def run() = {
+      Thread.sleep(1000L)
+      objectExample.increment()
+      val data: Int = objectExample.getData
+      printf("%s-data=%d%n", name, data)
+    }
+  }
+
+  /**
+    * Thread
+    */
+  @Test
+  def multiThread1(): Unit = {
+    for (i <- list.par) {
+      val thread: Thread = new Thread(new ThreadExample(s"example1-threadNumber$i"))
+      thread.start()
+    }
+  }
+
+  /**
+    * java.util.concurrent
+    */
+  @Test
+  def multiThread2(): Unit = {
+    for (i <- list.par) {
+      val executor: ExecutorService = Executors.newSingleThreadExecutor()
+      executor.execute(new ThreadExample(s"example2-threadNumber$i"))
+      executor.shutdown()
+    }
+  }
+
+  private class ActorExample extends Actor {
+    override def receive: Receive = {
+      case name =>
+        Thread.sleep(1000L)
+        objectExample.increment()
+        val data: Int = objectExample.getData
+        printf("%s-data=%d%n", name, data)
+        context.system.terminate()
+    }
+  }
+
+  /**
+    * akka.actor
+    */
+  @Test
+  def multiThread3(): Unit = {
+    val system: ActorSystem = ActorSystem("actor-example")
+    for (i <- list.par) {
+      val actor: ActorRef = system.actorOf(Props(new ActorExample()), s"actorExample$i")
+      actor ! s"example3-actorNumber$i"
+    }
+    Await.result(system.whenTerminated, Duration.Inf)
   }
 }
