@@ -1,5 +1,6 @@
 #2.　フォーマット
 <img src="../image/string_course.014.jpeg" width="500px"><br>
+***
 <h3>2.1　Stringのformatメソッド</h3>
 <img src="../image/string_course.015.jpeg" width="500px"><br>
 ```scala
