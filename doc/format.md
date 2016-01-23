@@ -94,6 +94,7 @@
     printf("%h\n", new Object())
   }
 ```
+***
 <h3>2.2　DateTimeFormatter</h3>
 <img src="../image/string_course.016.jpeg" width="500px"><br>
 SimpleDateFormatはスレッドアンセーフでありながらスレッドセーフなDateTimeFormatterより処理速度が遅いためSimpleDateFormatの使用はお勧めできません。DateTimeFormatterはJava 8から導入されたためJava 7以前でスレッドセーフな日付・時刻フォーマッターが欲しい場合は、自作されるか、Apache Commons LangのFastDateFormatクラスのように外部ライブラリを使用すると良いでしょう。
@@ -116,5 +117,6 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
   }
 ```
+***
 <h3>2.3　テンプレートエンジン</h3>
 <img src="../image/string_course.017.jpeg" width="500px"><br>
