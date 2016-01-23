@@ -4,7 +4,7 @@
 %から始まるprintfスタイルの書式は、
 printf、str.format、f補間子、String.format、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">Formatter</a>などで使用可能です。
 %から始まらない書式は、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/time/format/DateTimeFormatter.html" target="_blank">DateTimeFormatter</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/MessageFormat.html" target="_blank">MessageFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/NumberFormat.html" target="_blank">NumberFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/ChoiceFormat.html" target="_blank">ChoiceFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/DecimalFormat.html" target="_blank">DecimalFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/DateFormat.html" target="_blank">DateFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/SimpleDateFormat.html" target="_blank">SimpleDateFormat</a>などがあります。
-printfスタイルの細かな書式の定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
+printfスタイルの書式の定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
 ***
 <h3>2.1　Stringのformatメソッド</h3>
 <img src="../image/string_course.015.jpeg" width="500px"><br>
