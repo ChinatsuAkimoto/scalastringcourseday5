@@ -1,8 +1,10 @@
 #2.　フォーマット
 <img src="../image/string_course.014.jpeg" width="500px"><br>
-フォーマットとは、%から始まるフォーマットに値を埋め込みStringを生成する方式のことです。
-printf、str.format、f補間子、String.format、Formatter、MessageFormat、NumberFormat、ChoiceFormat、DecimalFormat、DateFormat、DateTimeFormatter、SimpleDateFormatなどで使用可能です。
-細かなフォーマットの定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
+フォーマットとは、Stringで書かれた書式に値を埋め込みStringを生成する処理のことです。
+%から始まるprintfスタイルの書式は、
+printf、str.format、f補間子、String.format、Formatterなどで使用可能です。
+%から始まらない書式は、DateTimeFormatter、MessageFormat、NumberFormat、ChoiceFormat、DecimalFormat、DateFormat、SimpleDateFormatなどがあります。
+printfスタイルの細かな書式の定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
 ***
 <h3>2.1　Stringのformatメソッド</h3>
 <img src="../image/string_course.015.jpeg" width="500px"><br>
