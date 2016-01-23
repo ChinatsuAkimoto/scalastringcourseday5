@@ -428,3 +428,5 @@ Javaの可変長引数を持つメソッドにScalaからArrayで値を渡した
 Scalaの可変長引数を持つメソッドをJavaから使用する場合はJavaで使用するときと同様に配列で値を渡せます。
 ***
 <h3>コラム：コレクションに関するJava/Scala互換性</h3>
+ScalaからJavaのコレクション、もしくはJavaからScalaのコレクションを呼び出す時、scala.collection.JavaConversionsにScalaとJavaのコレクションの相互変換のメソッドが置かれています。<br>
+参考文献：<a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a>
