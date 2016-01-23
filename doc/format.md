@@ -134,7 +134,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 Javaでフォーマットで複数行の雛形を作成したい場合、書式内に```%n```または```\n```を含めたワンライナーで書く必要があります。
 そのような書式はとても読みづらく可読性・保守性の観点からよくありません。
 この場合、<a href="http://velocity.apache.org/" target="_blank">Apache Velocity</a>や<a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars.java</a>などのようなテンプレートエンジンを用いることで複数行の雛形を作成し、値を埋め込むことができ、可読性・保守性が向上します。
-ScalaにはDay 2で説明した生文字リテラルが存在するため、生文字リテラルにフォーマットや文字列補間子を組み合わせることやXMLリテラルで、テンプレートエンジンと似た処理ができます。
+Scalaには<a href="https://github.com/ynupc/scalastringcourseday2/blob/master/doc/literal.md" target="_blank">Day 2</a>で説明した生文字リテラルが存在するため、生文字リテラルにフォーマットや文字列補間子を組み合わせることやXMLリテラルで、テンプレートエンジンと似た処理ができます。
 ただし、テンプレートエンジンは雛形をプログラムと別のファイルとして外部化する点が異なります。
 XMLリテラルによるテンプレート処理については、<a href="#コラムxmlリテラルによるテンプレート処理">コラム：XMLリテラルによるテンプレート処理</a>を参照ください。
 ***
