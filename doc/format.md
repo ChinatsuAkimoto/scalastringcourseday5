@@ -10,7 +10,9 @@
     assert(String.format("%d%%", 100.asInstanceOf[java.lang.Integer]) == "100%")
   }
 ```
-
+フォーマットとは、%から始まるフォーマットに値を埋め込みStringを生成する方式のことです。
+printf、str.format、f補間子、String.format、Formatter、MessageFormat、NumberFormat、ChoiceFormat、DecimalFormat、DateFormat、DateTimeFormatter、SimpleDateFormatなどで使用可能です。
+細かなフォーマットの定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
 ```scala
   @Test
   def testFormat2(): Unit = {
