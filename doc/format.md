@@ -8,6 +8,7 @@ printfスタイルの書式の定義は<a href="http://docs.oracle.com/javase/jp
 ***
 <h3>2.1　Stringのformatメソッド</h3>
 <img src="../image/string_course.015.jpeg" width="500px"><br>
+Java由来のstaticなString.formatメソッドとScalaで使用可能な非staticなformatメソッドがあるが、staticなString.formatメソッドにはJavaとの互換性の問題が発生するため、Scalaでは非staticなformatメソッドを使用するべきでしょう。
 ```scala
   @Test
   def testFormat1(): Unit = {
@@ -15,7 +16,7 @@ printfスタイルの書式の定義は<a href="http://docs.oracle.com/javase/jp
     assert(String.format("%d%%", 100.asInstanceOf[java.lang.Integer]) == "100%")
   }
 ```
-
+printfスタイルの書式の定義は膨大なので、代表的な書式についてサンプルコードにまとめます。
 ```scala
   @Test
   def testFormat2(): Unit = {
