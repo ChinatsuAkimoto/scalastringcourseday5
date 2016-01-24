@@ -128,6 +128,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
   }
 ```
+***
 <h3>2.3　DateFormatとSimpleDateFormat</h3>
 ```scala
   @Test
@@ -167,8 +168,8 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
   }
 
 ```
+***
 <h3>2.4　NumberFormatとDecimalFormat</h3>
-
 ```scala
   @Test
   def testNumberFormat(): Unit = {
@@ -221,6 +222,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert(decimalFormat.parse("0.577") == 0.577)
   }
 ```
+***
 <h3>2.5　ChoiceFormat</h3>
 ```scala
   @Test
@@ -284,6 +286,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert(choiceFormat.parse("正の数") == ChoiceFormat.nextDouble(0D))
   }
 ```
+***
 <h3>2.6　MessageFormat</h3>
 ```scala
   @Test
