@@ -21,7 +21,7 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
 <h3>1.4　String</h3>
 <img src="../image/string_course.005.jpeg" width="500px"><br>
 Stringはイミュータブル（固定長）でスレッドセーフな文字列クラスです。
-＋メソッドやunionメソッドで文字列を結合するときはSeqLike で<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom" target="_blank">CanBuildFrom</a>を用いてミュータブルなビルダークラスmutable.Builderを生成して文字列を結合し、新しいインスタンスを生成しています。(JavaではStringBuilderが内部処理で使用されます。)
+＋メソッドやunionメソッドで文字列を結合するときはSeqLikeで<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom" target="_blank">CanBuildFrom</a>を用いてミュータブルなビルダークラスmutable.Builderを生成して文字列を結合し、新しいインスタンスを生成しています。(JavaではStringBuilderが内部処理で使用されます。)
 新しいインスタンスを生成する点はconcatメソッドでも同様です。
 ```scala
   @Test
