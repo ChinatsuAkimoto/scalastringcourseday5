@@ -417,7 +417,7 @@ StringBuffer/StringBuilderはビルダーパターンで設計されています
 StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoStringメソッド、生成したいインスタンスはStringです。
 ***
 <h3>コラム：マルチスレッドプログラミング</h3>
-マルチスレッドプログラミングにおいては、同じクラスを複数のスレッドが操作して目的通りに動作しないデータ競合が起こったり、デッドロックが起こってしまうといった危険がありスレッドセーフティを意識してプログラミングすることが大切です。そのためにどのように排他制御・非同期して、どのように同期するかについては様々なことを学ぶ必要があります。ここでは変数の操作がsynchronizedされたクラスと３種類のマルチスレッドの実装（１）Thread、（２）java.util.concurrent、（３）Actorについて短く解説します。
+マルチスレッドプログラミングにおいては、同じクラスを複数のスレッドが操作して目的通りに動作しないデータ競合が起こったり、デッドロックが起こってしまうといった危険がありスレッドセーフティを意識してプログラミングすることが大切です。そのためにどのように排他制御・非同期して、どのように同期するかについては様々なことを学ぶ必要があります。サンプルコードには変数の操作がsynchronizedされたクラスと３種類のマルチスレッド（１）Thread、（２）java.util.concurrent、（３）Actorの実装例を載せます。
 ```scala
   private class ObjectExample(private var data: Int) {
     def increment(): Unit = {
@@ -432,14 +432,7 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
       }
     }
   }
-```
-<h4>（１）Thread</h4>
 
-<h4>（２）java.util.concurrent</h4>
-
-<h4>（３）Actor</h4>
-
-```scala
   private val list: List[Int] = (0 to 3).toList
   private val objectExample: ObjectExample = new ObjectExample(-1)
 
