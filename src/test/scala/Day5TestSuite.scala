@@ -1,5 +1,6 @@
 package day5
 
+import java.io.{PrintStream, ByteArrayOutputStream, PrintWriter, StringWriter}
 import java.nio.charset._
 import java.nio.{ByteBuffer, CharBuffer}
 import java.text._
@@ -199,6 +200,40 @@ class Day5TestSuite extends AssertionsForJUnit {
     val iterable: java.lang.Iterable[String] = scala.collection.JavaConversions.asJavaIterable(array.toIterable)
     assert(String.join(", ", iterable) == "abc, cde, efg")
     assert(String.join(", ", iterable).mkString("[", "", "]") == "[abc, cde, efg]")
+  }
+
+  @Test
+  def testPrintWriter(): Unit = {
+    val stringWriter: StringWriter = new StringWriter()
+    val printWriter: PrintWriter = new PrintWriter(stringWriter)
+
+    printWriter.print(true)
+    printWriter.println("abc")
+    printWriter.printf("%d\n", 123.asInstanceOf[java.lang.Integer])
+
+    printWriter.close()
+
+    assert(stringWriter.toString ==
+      """trueabc
+        |123""".stripMargin.concat("\n"))
+  }
+
+  @Test
+  def testPrintStream(): Unit = {
+    val byteArrayOutputStream: ByteArrayOutputStream = new ByteArrayOutputStream()
+    val printStream: PrintStream = new PrintStream(byteArrayOutputStream)
+
+    printStream.print(true)
+    printStream.println("abc")
+    //noinspection ScalaMalformedFormatString
+    printStream.printf("%d\n", 123.asInstanceOf[java.lang.Integer])
+
+    printStream.close()
+    println(byteArrayOutputStream.toString)
+
+    assert(byteArrayOutputStream.toString ==
+      """trueabc
+        |123""".stripMargin.concat("\n"))
   }
 
   private val utf8ByteArray1ForBufferTest: Array[Byte] =
