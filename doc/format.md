@@ -152,21 +152,6 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     println(simpleDateFormat.format(date))
     println(simpleDateFormat.parse("292278994年8月229日（日）"))
   }
-
-  private class ObjectExample(private var data: Int) {
-    def increment(): Unit = {
-      synchronized[Unit] {
-        data += 1
-      }
-    }
-
-    def getData: Int = {
-      synchronized[Int] {
-        data
-      }
-    }
-  }
-
 ```
 ***
 <h3>2.4　NumberFormatとDecimalFormat</h3>
