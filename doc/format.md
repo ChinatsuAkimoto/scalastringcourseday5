@@ -128,17 +128,46 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
   }
 ```
-
+<h3>2.3　DateFormatとSimpleDateFormat</h3>
 ```scala
   @Test
-  def testMessageFormat(): Unit = {
-    val messageFormat: MessageFormat = new MessageFormat("今日は{0,date,yyyy年MM月dd日}、時刻は{0,time}。天気は{1}です。")
-    println(messageFormat.format(Array[Object](new Date(0L), "晴れ")))
-    val parsed = messageFormat.parse("今日は1970年01月01日、時刻は9:00:00。天気は晴れです。")
-
-    assert(parsed(1) == "晴れ")
+  def testDateFormat(): Unit = {
+    val date: Date = new Date(Long.MinValue)
+    val dateFormat1: DateFormat = DateFormat.getDateInstance
+    println(dateFormat1.format(date) == "292269055/12/03")
+    println(dateFormat1.parse("292269055/12/03"))
+    val dateFormat2: DateFormat = DateFormat.getTimeInstance
+    println(dateFormat2.format(date) == "1:47:04")
+    println(dateFormat2.parse("1:47:04"))
+    val dateFormat3: DateFormat = DateFormat.getDateTimeInstance
+    println(dateFormat3.format(date) == "292269055/12/03 1:47:04")
+    println(dateFormat3.parse("292269055/12/03 1:47:04"))
   }
+
+  @Test
+  def testSimpleDateFormat(): Unit = {
+    val date: Date = new Date(Long.MaxValue)
+    val simpleDateFormat: SimpleDateFormat = new SimpleDateFormat("Y年M月D日（E）")
+    println(simpleDateFormat.format(date))
+    println(simpleDateFormat.parse("292278994年8月229日（日）"))
+  }
+
+  private class ObjectExample(private var data: Int) {
+    def increment(): Unit = {
+      synchronized[Unit] {
+        data += 1
+      }
+    }
+
+    def getData: Int = {
+      synchronized[Int] {
+        data
+      }
+    }
+  }
+
 ```
+<h3>2.4　NumberFormatとDecimalFormat</h3>
 
 ```scala
   @Test
@@ -192,7 +221,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert(decimalFormat.parse("0.577") == 0.577)
   }
 ```
-
+<h3>2.5　ChoiceFormat</h3>
 ```scala
   @Test
   def testChoiceFormat1(): Unit = {
@@ -255,47 +284,19 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert(choiceFormat.parse("正の数") == ChoiceFormat.nextDouble(0D))
   }
 ```
-
+<h3>2.6　MessageFormat</h3>
 ```scala
   @Test
-  def testDateFormat(): Unit = {
-    val date: Date = new Date(Long.MinValue)
-    val dateFormat1: DateFormat = DateFormat.getDateInstance
-    println(dateFormat1.format(date) == "292269055/12/03")
-    println(dateFormat1.parse("292269055/12/03"))
-    val dateFormat2: DateFormat = DateFormat.getTimeInstance
-    println(dateFormat2.format(date) == "1:47:04")
-    println(dateFormat2.parse("1:47:04"))
-    val dateFormat3: DateFormat = DateFormat.getDateTimeInstance
-    println(dateFormat3.format(date) == "292269055/12/03 1:47:04")
-    println(dateFormat3.parse("292269055/12/03 1:47:04"))
+  def testMessageFormat(): Unit = {
+    val messageFormat: MessageFormat = new MessageFormat("今日は{0,date,yyyy年MM月dd日}、時刻は{0,time}。天気は{1}です。")
+    println(messageFormat.format(Array[Object](new Date(0L), "晴れ")))
+    val parsed = messageFormat.parse("今日は1970年01月01日、時刻は9:00:00。天気は晴れです。")
+
+    assert(parsed(1) == "晴れ")
   }
-
-  @Test
-  def testSimpleDateFormat(): Unit = {
-    val date: Date = new Date(Long.MaxValue)
-    val simpleDateFormat: SimpleDateFormat = new SimpleDateFormat("Y年M月D日（E）")
-    println(simpleDateFormat.format(date))
-    println(simpleDateFormat.parse("292278994年8月229日（日）"))
-  }
-
-  private class ObjectExample(private var data: Int) {
-    def increment(): Unit = {
-      synchronized[Unit] {
-        data += 1
-      }
-    }
-
-    def getData: Int = {
-      synchronized[Int] {
-        data
-      }
-    }
-  }
-
 ```
 ***
-<h3>2.3　テンプレートエンジン</h3>
+<h3>2.7　テンプレートエンジン</h3>
 <img src="../image/string_course.017.jpeg" width="500px"><br>
 Javaでフォーマットで複数行の雛形を作成したい場合、書式内に```%n```または```\n```を含めたワンライナーで書く必要があります。
 そのような書式はとても読みづらく可読性・保守性の観点からよくありません。
