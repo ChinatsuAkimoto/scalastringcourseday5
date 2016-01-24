@@ -128,6 +128,172 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
   }
 ```
+
+```scala
+  @Test
+  def testMessageFormat(): Unit = {
+    val messageFormat: MessageFormat = new MessageFormat("今日は{0,date,yyyy年MM月dd日}、時刻は{0,time}。天気は{1}です。")
+    println(messageFormat.format(Array[Object](new Date(0L), "晴れ")))
+    val parsed = messageFormat.parse("今日は1970年01月01日、時刻は9:00:00。天気は晴れです。")
+
+    assert(parsed(1) == "晴れ")
+  }
+```
+
+```scala
+  @Test
+  def testNumberFormat(): Unit = {
+    val numberFormat1: NumberFormat = NumberFormat.getInstance(Locale.JAPAN)
+
+    assert(numberFormat1.getCurrency.getCurrencyCode == "JPY")
+
+    assert(numberFormat1.format(100L) == "100")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat1.parse("100") == 100)
+    assert(numberFormat1.format(0.5772156649D) == "0.577")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat1.parse("0.577") == 0.577)
+
+    val numberFormat2: NumberFormat = NumberFormat.getIntegerInstance(Locale.JAPAN)
+    assert(numberFormat2.format(100L) == "100")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat2.parse("100") == 100)
+    assert(numberFormat2.format(0.5772156649D) == "1")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat2.parse("0.577") == 0)
+
+    val numberFormat3: NumberFormat = NumberFormat.getCurrencyInstance(Locale.JAPAN)
+
+    assert(numberFormat3.format(100L) == "￥100")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat3.parse("￥100") == 100)
+    assert(numberFormat3.format(0.5772156649D) == "￥1")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat3.parse("￥0.577") == 0.577)
+
+    val numberFormat4: NumberFormat = NumberFormat.getPercentInstance(Locale.JAPAN)
+    assert(numberFormat4.format(100L) == "10,000%")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat4.parse("10,000%") == 100)
+    assert(numberFormat4.format(0.5772156649D) == "58%")
+    //noinspection ComparingUnrelatedTypes
+    assert(numberFormat4.parse("57.7%") == 0.5770000000000001)//buggy???
+  }
+
+  @Test
+  def testDecimalFormat(): Unit = {
+    val decimalFormat: DecimalFormat = new DecimalFormat()
+    assert(decimalFormat.getCurrency.getCurrencyCode == "JPY")
+    assert(decimalFormat.format(100L) == "100")
+    //noinspection ComparingUnrelatedTypes
+    assert(decimalFormat.parse("100") == 100)
+    assert(decimalFormat.format(0.5772156649D) == "0.577")
+    //noinspection ComparingUnrelatedTypes
+    assert(decimalFormat.parse("0.577") == 0.577)
+  }
+```
+
+```scala
+  @Test
+  def testChoiceFormat1(): Unit = {
+    val choiceFormat: ChoiceFormat =
+      new ChoiceFormat(
+        Array[Double](-1D, 0D),
+        Array[String]("負の数", "正の数"))
+
+    //num < -1
+    assert(choiceFormat.format(-2) == "負の数")
+    //-1<= num < 0
+    assert(choiceFormat.format(-0.5D) == "負の数")
+    //0 <= num
+    assert(choiceFormat.format(0D) == "正の数")
+    assert(choiceFormat.format(1D) == "正の数")
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("負の数") == -1D)
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("正の数") == 0D)
+  }
+
+  @Test
+  def testChoiceFormat2(): Unit = {
+    val choiceFormat: ChoiceFormat =
+      new ChoiceFormat(
+        Array[Double](-1D, 0D, ChoiceFormat.nextDouble(0D)),
+        Array[String]("負の数", "0", "正の数"))
+    //num < -1
+    assert(choiceFormat.format(-2) == "負の数")
+    //-1<= num < 0
+    assert(choiceFormat.format(-0.5D) == "負の数")
+    //num == 0
+    assert(choiceFormat.format(0D) == "0")
+    //0 < num
+    assert(choiceFormat.format(1D) == "正の数")
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("負の数") == -1D)
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("0") == 0D)
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("正の数") == ChoiceFormat.nextDouble(0D))
+  }
+
+  @Test
+  def testChoiceFormat3(): Unit = {
+    val choiceFormat: ChoiceFormat = new ChoiceFormat("-1#負の数| 0#0| 0<正の数")
+    //num < -1
+    assert(choiceFormat.format(-2) == "負の数")
+    //-1<= num < 0
+    assert(choiceFormat.format(-0.5D) == "負の数")
+    //num == 0
+    assert(choiceFormat.format(0D) == "0")
+    //0 < num
+    assert(choiceFormat.format(1D) == "正の数")
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("負の数") == -1D)
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("0") == 0D)
+    //noinspection ComparingUnrelatedTypes
+    assert(choiceFormat.parse("正の数") == ChoiceFormat.nextDouble(0D))
+  }
+```
+
+```scala
+  @Test
+  def testDateFormat(): Unit = {
+    val date: Date = new Date(Long.MinValue)
+    val dateFormat1: DateFormat = DateFormat.getDateInstance
+    println(dateFormat1.format(date) == "292269055/12/03")
+    println(dateFormat1.parse("292269055/12/03"))
+    val dateFormat2: DateFormat = DateFormat.getTimeInstance
+    println(dateFormat2.format(date) == "1:47:04")
+    println(dateFormat2.parse("1:47:04"))
+    val dateFormat3: DateFormat = DateFormat.getDateTimeInstance
+    println(dateFormat3.format(date) == "292269055/12/03 1:47:04")
+    println(dateFormat3.parse("292269055/12/03 1:47:04"))
+  }
+
+  @Test
+  def testSimpleDateFormat(): Unit = {
+    val date: Date = new Date(Long.MaxValue)
+    val simpleDateFormat: SimpleDateFormat = new SimpleDateFormat("Y年M月D日（E）")
+    println(simpleDateFormat.format(date))
+    println(simpleDateFormat.parse("292278994年8月229日（日）"))
+  }
+
+  private class ObjectExample(private var data: Int) {
+    def increment(): Unit = {
+      synchronized[Unit] {
+        data += 1
+      }
+    }
+
+    def getData: Int = {
+      synchronized[Int] {
+        data
+      }
+    }
+  }
+
+```
 ***
 <h3>2.3　テンプレートエンジン</h3>
 <img src="../image/string_course.017.jpeg" width="500px"><br>
