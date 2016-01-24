@@ -13,6 +13,7 @@ Java由来のstaticなString.formatメソッドとScalaで使用可能な非stat
   @Test
   def testFormat1(): Unit = {
     assert("%d%%".format(100) == "100%")
+    //noinspection ComparingUnrelatedTypes
     assert(String.format("%d%%", 100.asInstanceOf[java.lang.Integer]) == "100%")
   }
 ```
@@ -60,6 +61,7 @@ printfスタイルの書式の定義は膨大なので、代表的な書式に�
     assert("[%5.4s]".format("xyzab") == "[ xyza]")
     assert("[%-5.4s]".format("xyzab") == "[xyza ]")
     //直前と同じ値（直前と同じものを引数に入れるくらいなら、これを使用した方が効率的）
+    //noinspection ComparingUnrelatedTypes
     assert("%d:%<d:%d:%<d".format(1, 22) == "1:1:22:22")
     //引数のインデックス指定（同じものを連続せずに何度も引数に入れるくらいなら、これでまとめる方が効率的）
     assert("%d:%d:%d".format(1, 22, 333) == "1:22:333")
