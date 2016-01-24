@@ -299,8 +299,43 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
   }
 ```
 ***
-<h3>1.8　PrintWriter (StringWriter)/PrintStream</h3>
+<h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
 
+```scala
+  @Test
+  def testPrintWriter(): Unit = {
+    val stringWriter: StringWriter = new StringWriter()
+    val printWriter: PrintWriter = new PrintWriter(stringWriter)
+
+    printWriter.print(true)
+    printWriter.println("abc")
+    printWriter.printf("%d\n", 123.asInstanceOf[java.lang.Integer])
+
+    printWriter.close()
+
+    assert(stringWriter.toString ==
+      """trueabc
+        |123""".stripMargin.concat("\n"))
+  }
+
+  @Test
+  def testPrintStream(): Unit = {
+    val byteArrayOutputStream: ByteArrayOutputStream = new ByteArrayOutputStream()
+    val printStream: PrintStream = new PrintStream(byteArrayOutputStream)
+
+    printStream.print(true)
+    printStream.println("abc")
+    //noinspection ScalaMalformedFormatString
+    printStream.printf("%d\n", 123.asInstanceOf[java.lang.Integer])
+
+    printStream.close()
+    println(byteArrayOutputStream.toString)
+
+    assert(byteArrayOutputStream.toString ==
+      """trueabc
+        |123""".stripMargin.concat("\n"))
+  }
+```
 ***
 <h3>1.9　java.nio.Buffer</h3>
 <img src="../image/string_course.013.jpeg" width="500px"><br>
