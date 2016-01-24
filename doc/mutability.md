@@ -417,10 +417,88 @@ StringBuffer/StringBuilderはビルダーパターンで設計されています
 StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoStringメソッド、生成したいインスタンスはStringです。
 ***
 <h3>コラム：マルチスレッドプログラミング</h3>
-マルチスレッドプログラミングにおいては、同じクラスを複数のスレッドが操作して目的通りに動作しないデータ競合が起こったり、デッドロックが起こってしまうといった危険がありスレッドセーフティを意識してプログラミングすることが大切です。そのためにどのように排他制御・非同期して、どのように同期するかについては様々なことを学ぶ必要があります。ここでは排他制御にのみ注目して、Scalaにおける３種類の排他制御の方法（１）synchronized修飾子による排他制御、（２）java.util.concurrentによる排他制御、（３）Actorによる排他制御について短く解説します。
-<h4>（１）synchronized修飾子による排他制御</h4>
-<h4>（２）java.util.concurrentによる排他制御</h4>
-<h4>（３）Actorによる排他制御</h4>
+マルチスレッドプログラミングにおいては、同じクラスを複数のスレッドが操作して目的通りに動作しないデータ競合が起こったり、デッドロックが起こってしまうといった危険がありスレッドセーフティを意識してプログラミングすることが大切です。そのためにどのように排他制御・非同期して、どのように同期するかについては様々なことを学ぶ必要があります。ここでは変数の操作がsynchronizedされたクラスと３種類のマルチスレッドの実装（１）Thread、（２）java.util.concurrent、（３）Actorについて短く解説します。
+```scala
+  private class ObjectExample(private var data: Int) {
+    def increment(): Unit = {
+      synchronized[Unit] {
+        data += 1
+      }
+    }
+
+    def getData: Int = {
+      synchronized[Int] {
+        data
+      }
+    }
+  }
+```
+<h4>（１）Thread</h4>
+
+<h4>（２）java.util.concurrent</h4>
+
+<h4>（３）Actor</h4>
+
+```scala
+  private val list: List[Int] = (0 to 3).toList
+  private val objectExample: ObjectExample = new ObjectExample(-1)
+
+  private class ThreadExample(name: String) extends Runnable {
+    def run() = {
+      Thread.sleep(1000L)
+      objectExample.increment()
+      val data: Int = objectExample.getData
+      printf("%s-data=%d%n", name, data)
+    }
+  }
+
+  /**
+    * Thread
+    */
+  @Test
+  def multiThread1(): Unit = {
+    for (i <- list.par) {
+      val thread: Thread = new Thread(new ThreadExample(s"example1-threadNumber$i"))
+      thread.start()
+    }
+  }
+
+  /**
+    * java.util.concurrent
+    */
+  @Test
+  def multiThread2(): Unit = {
+    for (i <- list.par) {
+      val executor: ExecutorService = Executors.newSingleThreadExecutor()
+      executor.execute(new ThreadExample(s"example2-threadNumber$i"))
+      executor.shutdown()
+    }
+  }
+
+  private class ActorExample extends Actor {
+    override def receive: Receive = {
+      case name =>
+        Thread.sleep(1000L)
+        objectExample.increment()
+        val data: Int = objectExample.getData
+        printf("%s-data=%d%n", name, data)
+        context.system.terminate()
+    }
+  }
+
+  /**
+    * akka.actor
+    */
+  @Test
+  def multiThread3(): Unit = {
+    val system: ActorSystem = ActorSystem("actor-example")
+    for (i <- list.par) {
+      val actor: ActorRef = system.actorOf(Props(new ActorExample()), s"actorExample$i")
+      actor ! s"example3-actorNumber$i"
+    }
+    Await.result(system.whenTerminated, Duration.Inf)
+  }
+```
 ***
 <h3>コラム：可変長引数に関するのJava/Scala互換性</h3>
 Javaの可変長引数は配列型に変換され、Scalaの可変長引数はSeq型に変換されます。
