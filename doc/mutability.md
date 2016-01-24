@@ -280,7 +280,7 @@ StringJoinerの中身はStringBuilderです。
 String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
 mkStringメソッドを組み合わせて使用することで、StringJoiner相当のことができます。
 String.joinよりStringJoinerの方が高速であり、StringJoinerよりStringBuilderの方が高速だという報告が掲載されたブログの記事があります（<a href="http://d.hatena.ne.jp/nowokay/20140409" target="_blank">Java8時代の文字列連結まとめ</a>）。
-Stringをコードポイント配列に変換する際にStringで直接扱うよりChar配列に変換して扱う方が高速化するように（<a href="https://www.ibm.com/developerworks/jp/java/library/j-unicode/" target="_blank">Java 言語による Unicode サロゲート・プログラミング</a>）、低レイヤで処理を書けば高速化したりメモリ消費を減らしたりできるのは試す前に想定できることです（その分、プログラムが長大化し読みづらくなる、変数が増えてバグが発生する可能性が増えるといった短所もあります）が、実際に確認する作業は大切なことです。
+Stringをコードポイント配列に変換する際にStringで直接扱うよりChar配列に変換して扱う方が高速化するように（<a href="https://www.ibm.com/developerworks/jp/java/library/j-unicode/" target="_blank">Java 言語による Unicode サロゲート・プログラミング</a>）、低レイヤで処理を書けば高速化したり（メモリ消費を減らしたり）できるのは試す前に想定できることです（その分、プログラムが長大化し読みづらくなる、変数が増えてバグが発生する可能性が増えるといった短所もあります）が、実際に確認する作業は大切なことです。
 String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。可変長引数に関するのJavaとScalaの間の互換性については、<a href="#コラム可変長引数に関するのjavascala互換性">コラム：可変長引数に関するのJava/Scala互換性</a>、コレクションに関するJavaとScalaの間の互換性については、<a href="#コラムコレクションに関するjavascala互換性">コラム：コレクションに関するJava/Scala互換性</a>を参照ください。
 ```scala
   @Test
