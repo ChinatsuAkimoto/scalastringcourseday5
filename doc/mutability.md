@@ -40,6 +40,7 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 ```
 ***
 <h3>1.5　StringBuffer/StringBuilder</h3>
+<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>
 <img src="../image/string_course.006.jpeg" width="500px"><br>
 <img src="../image/string_course.007.jpeg" width="500px"><br>
 <img src="../image/string_course.008.jpeg" width="500px"><br>
