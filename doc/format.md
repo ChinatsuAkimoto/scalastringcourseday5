@@ -61,7 +61,7 @@ printfスタイルの書式の定義は膨大なので、代表的な書式に�
     assert("[%5.4s]".format("xyzab") == "[ xyza]")
     assert("[%-5.4s]".format("xyzab") == "[xyza ]")
     //直前と同じ値（直前と同じものを引数に入れるくらいなら、これを使用した方が効率的）
-    //noinspection ComparingUnrelatedTypes
+    //noinspection ScalaMalformedFormatString
     assert("%d:%<d:%d:%<d".format(1, 22) == "1:1:22:22")
     //引数のインデックス指定（同じものを連続せずに何度も引数に入れるくらいなら、これでまとめる方が効率的）
     assert("%d:%d:%d".format(1, 22, 333) == "1:22:333")
@@ -96,9 +96,19 @@ printfスタイルの書式の定義は膨大なので、代表的な書式に�
     //Windows: \r\n
     printf("%n")
     //日付・時刻
-    printf("%1$tY年%1$tm月%1$td日%tA\n", new Date())
-    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, new Date()))
-    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, new Date()))
+    val date = new Date()
+    printf("%1$tY年%1$tm月%1$td日%tA\n", date)
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, date))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, date))
+    val calendar = Calendar.getInstance
+    printf("%1$tY年%1$tm月%1$td日%tA\n", calendar)
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, calendar))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, calendar))
+    val zonedDateTime = ZonedDateTime.now
+    //noinspection ScalaMalformedFormatString
+    printf("%1$tY年%1$tm月%1$td日%tA\n", zonedDateTime)
+    printf("%1$tY年%1$tm月%1$td日%tA%n".formatLocal(java.util.Locale.US, zonedDateTime))
+    println("%1$tY年%1$tm月%1$td日%tA".formatLocal(java.util.Locale.JAPAN, zonedDateTime))
     //ハッシュコード（16進数）
     printf("%h\n", new Object())
   }
