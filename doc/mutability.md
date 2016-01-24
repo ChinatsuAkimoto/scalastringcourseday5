@@ -297,7 +297,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
   }
 ```
 ***
-<h3>1.8 PrintWriter (StringWriter)/PrintStream</h3>
+<h3>1.8　PrintWriter (StringWriter)/PrintStream</h3>
 
 ***
 <h3>1.9　java.nio.Buffer</h3>
