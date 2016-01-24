@@ -300,7 +300,9 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 ```
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
-
+PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。
+参考文献：<br>
+<a href="http://www.ne.jp/asahi/hishidama/home/tech/java/string.html#PrintWriter" target="_blank">PrintWriter/PrintStream</a>
 ```scala
   @Test
   def testPrintWriter(): Unit = {
@@ -545,4 +547,5 @@ Scalaの可変長引数を持つメソッドをJavaから使用する場合はJa
 ***
 <h3>コラム：コレクションに関するJava/Scala互換性</h3>
 ScalaからJavaのコレクションを呼び出したいとき、もしくはJavaからScalaのコレクションを呼び出したいとき、<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.JavaConversions$" target="_blank">scala.collection.JavaConversions</a>を使用することでScalaとJavaのコレクションの相互変換のメソッドが置かれています。<br>
-参考文献：<a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a>
+参考文献：<br>
+<a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a>
