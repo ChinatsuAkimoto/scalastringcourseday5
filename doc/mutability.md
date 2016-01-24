@@ -418,9 +418,11 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
 ***
 <h3>コラム：マルチスレッドプログラミング</h3>
 マルチスレッドプログラミングにおいては、同じクラスを複数のスレッドが操作して目的通りに動作しないデータ競合が起こったり、デッドロックが起こってしまうといった危険がありスレッドセーフティを意識してプログラミングすることが大切です。そのためにどのように排他制御・非同期して、どのように同期するかについては様々なことを学ぶ必要があります。サンプルコードには変数の操作がsynchronizedされたクラスと３種類のマルチスレッド（１）Thread、（２）java.util.concurrent、（３）Actorの実装例を載せます。なお、サンプルコードではList型のコレクションクラスlistをfor文で回すとき、parメソッドによって処理を複数のプロセッサに分散化しています。<br>
-参考文献：<br>
-<a href="https://twitter.github.io/scala_school/concurrency.html" target="_blank">Concurrency in Scala</a><br>
-<a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target=_blank">Actors</a>
+参考文献：
+<ul>
+  <li><a href="https://twitter.github.io/scala_school/concurrency.html" target="_blank">Concurrency in Scala</a></li>
+  <li><a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target=_blank">Actors</a></li>
+</ul>
 ```scala
   private class ObjectExample(private var data: Int) {
     def increment(): Unit = {
