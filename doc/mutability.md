@@ -45,7 +45,7 @@ java.lang.StringBufferやjava.lang.StringBuilderはjava.lang.AbstractStringBuild
 Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくscala.collection.mutable.StringBuilderです。java.lang.StringBuilderはscala.collection.mutable.StringBuilderの内部で使用されているためjava.lang.StringBuilderと同じAPIが利用できます。
 <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>
 <img src="../image/string_course.007.jpeg" width="500px"><br>
-末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。先頭に追加するprependメソッドはないが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。
+末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。先頭に追加するprependメソッドはないが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。<br>
 <img src="../image/string_course.008.jpeg" width="500px"><br>
 <img src="../image/string_course.009.jpeg" width="500px"><br>
 ```java
