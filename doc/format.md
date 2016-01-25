@@ -143,6 +143,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ***
 <h3>2.3　DateFormatとSimpleDateFormat</h3>
 <img src="../image/string_course.019.jpeg" width="500px"><br>
+スレッドセーフティと処理速度の両点で勝っているDateTimeFormatterを使いましょう。日付、時刻、日付・時刻のparse/formatができます。getDateInstance（日付）、getTimeInstance（時刻）、getDateTimeInstance（日付・時刻）でインスタンスを生成します。SimpleDateFormatはDateTimeFormatterと同様のフォーマットでparse/formatできます。
 ```scala
   @Test
   def testDateFormat(): Unit = {
@@ -169,6 +170,9 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ***
 <h3>2.4　NumberFormatとDecimalFormat</h3>
 <img src="../image/string_course.020.jpeg" width="500px"><br>
+NumberFormatは整数、通貨、%表記に関するformat/parseができます。getIntegerInstance（整数）、getCurrencyInstance（通貨）、getPercentInstance（%）でインスタンスを生成します。
+ロケールに合わせて通貨コードも取得できます。
+DecimalFormatはNumberFormatのgetIntegerInstanceです。
 ```scala
   @Test
   def testNumberFormat(): Unit = {
@@ -224,6 +228,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ***
 <h3>2.5　ChoiceFormat</h3>
 <img src="../image/string_course.021.jpeg" width="500px"><br>
+値の範囲にラベルをつけて、parse/formatができます。
 ```scala
   @Test
   def testChoiceFormat1(): Unit = {
@@ -289,6 +294,8 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ***
 <h3>2.6　MessageFormat</h3>
 <img src="../image/string_course.022.jpeg" width="500px"><br>
+引数番号を指定して値を埋めるparse/formatができます。
+DateFormat、NumberFormat、DecimalFormat、ChoiceFormatで扱うフォーマットは全てMessageFormatで扱うことができます。
 ```scala
   @Test
   def testMessageFormat(): Unit = {
