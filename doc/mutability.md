@@ -42,14 +42,14 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 <h3>1.5　StringBuffer/StringBuilder</h3>
 <img src="../image/string_course.006.jpeg" width="500px"><br>
 java.lang.StringBufferやjava.lang.StringBuilderはjava.lang.AbstractStringBuilderを継承しているため同じAPIが利用できます。
-Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくscala.collection.mutable.StringBuilderです。java.lang.StringBuilderはscala.collection.mutable.StringBuilderの内部で使用されているためjava.lang.StringBuilderと同じAPIが利用できます。
-<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>
+Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくscala.collection.mutable.StringBuilderです。java.lang.StringBuilderはscala.collection.mutable.StringBuilderの内部で使用されているためjava.lang.StringBuilderと同じAPIが利用できます。<br>
 <img src="../image/string_course.007.jpeg" width="500px"><br>
 末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。メソッドチェーンで記述できます。先頭に追加するprependメソッドはないですが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。<br>
 <img src="../image/string_course.008.jpeg" width="500px"><br>
 capacityはCharを入れるための容量（Char数）です。もしCharを入れすぎてcapacityを超えてもオーバーフローせずに自動的に新たに容量を増やします。新たに容量を獲得する処理がオーバーヘッドとして発生するので、capacityが不足すると処理速度が低下します。しかし、処理を高速化するために十分に容量を獲得してcapacityを大きく取りすぎるとメモリの領域を使い過ぎてしまいます。capacityを大きく取りすぎてメモリの領域を無駄に使用している場合はtrimToSizeメソッドで収容しているChar数=lengthにcapacityを揃えることができます。<br>
 <img src="../image/string_course.009.jpeg" width="500px"><br>
 delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が高速なため一般に使用されます。setLength(0)/clearはポインタをずらしているだけ（下記のコードでは```count = newLength;```をしています）です。delete(0, length)ではlengthを取得する処理やSystem.arraycopyメソッドを使用しているため処理が遅くなります。
+なお、下記のコードはOracle Javaではなく<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>からのdeleteメソッドとsetLengthメソッドについての引用です。
 ```java
     /**
      * Removes the characters in a substring of this sequence.
