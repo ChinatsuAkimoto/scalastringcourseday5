@@ -317,7 +317,7 @@ Scalaには<a href="https://github.com/ynupc/scalastringcourseday2/blob/master/d
 XMLリテラルによるテンプレート処理については、<a href="#コラムxmlリテラルによるテンプレート処理">コラム：XMLリテラルによるテンプレート処理</a>を参照ください。
 ***
 <h3>コラム：XMLリテラルによるテンプレート処理</h3>
-XMLリテラルによってフォーマットや文字列補間子のように雛形に値を埋め込みStringを生成することができます。
+XMLリテラルによってフォーマットや文字列補間子のように雛形に値を埋め込みStringを生成することができます。XML形式のStringとしてtoStringメソッドを用いて出力するならScala XMLの本来の使用目的の範囲内ですが、textメソッドによってテンプレート処理として使用するのは本来の使用目的の範囲外なのでお勧めはできません。
 ```scala
   @Test
   def testXmlTemplate(): Unit = {
