@@ -1,5 +1,5 @@
 #2.　フォーマット
-<img src="../image/string_course.011.jpeg" width="500px"><br>
+<img src="../image/string_course.016.jpeg" width="500px"><br>
 フォーマットとは、Stringで書かれた書式に値を埋め込みStringを生成する処理のことです。
 %から始まるprintfスタイルの書式は、
 printf、str.format、f補間子、String.format、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">Formatter</a>などで使用可能です。
@@ -7,7 +7,7 @@ printf、str.format、f補間子、String.format、<a href="http://docs.oracle.c
 printfスタイルの書式の定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
 ***
 <h3>2.1　Stringのformatメソッド</h3>
-<img src="../image/string_course.015.jpeg" width="500px"><br>
+<img src="../image/string_course.017.jpeg" width="500px"><br>
 Java由来のstaticなString.formatメソッドとScalaで使用可能な非staticなformatメソッドがあるが、staticなString.formatメソッドにはJavaとの互換性の問題が発生するため、Scalaでは非staticなformatメソッドを使用するべきでしょう。
 ```scala
   @Test
@@ -115,7 +115,7 @@ printfスタイルの書式の定義は膨大なので、代表的な書式に�
 ```
 ***
 <h3>2.2　DateTimeFormatter</h3>
-<img src="../image/string_course.016.jpeg" width="500px"><br>
+<img src="../image/string_course.018.jpeg" width="500px"><br>
 DateTimeFormatterは日付・時刻に関するフォーマット及びバースの処理を扱うクラスです。
 タイムゾーン付きの日付・時間クラス<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/time/ZonedDateTime.html" target="_blank">ZonedDateTime</a>クラスを入力しフォーマットしたStringを返したり、Stringを入力としてパースしZonedDateTimeクラスを出力することができます。
 String.formatではZonedDateTimeクラスではなくDateクラスを与えることでフォーマットすることができます。
@@ -142,7 +142,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.3　DateFormatとSimpleDateFormat</h3>
-<img src="../image/string_course.017.jpeg" width="500px"><br>
+<img src="../image/string_course.019.jpeg" width="500px"><br>
 ```scala
   @Test
   def testDateFormat(): Unit = {
@@ -168,7 +168,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.4　NumberFormatとDecimalFormat</h3>
-<img src="../image/string_course.018.jpeg" width="500px"><br>
+<img src="../image/string_course.020.jpeg" width="500px"><br>
 ```scala
   @Test
   def testNumberFormat(): Unit = {
@@ -223,7 +223,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.5　ChoiceFormat</h3>
-<img src="../image/string_course.019.jpeg" width="500px"><br>
+<img src="../image/string_course.021.jpeg" width="500px"><br>
 ```scala
   @Test
   def testChoiceFormat1(): Unit = {
@@ -288,7 +288,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.6　MessageFormat</h3>
-<img src="../image/string_course.020.jpeg" width="500px"><br>
+<img src="../image/string_course.022.jpeg" width="500px"><br>
 ```scala
   @Test
   def testMessageFormat(): Unit = {
@@ -301,7 +301,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.7　テンプレートエンジン</h3>
-<img src="../image/string_course.021.jpeg" width="500px"><br>
+<img src="../image/string_course.023.jpeg" width="500px"><br>
 Javaでフォーマットで複数行の雛形を作成したい場合、書式内に```%n```または```\n```を含めたワンライナーで書く必要があります。
 そのような書式はとても読みづらく可読性・保守性の観点からよくありません。
 この場合、<a href="http://velocity.apache.org/" target="_blank">Apache Velocity</a>や<a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars.java</a>などのようなテンプレートエンジンを用いることで複数行の雛形を作成し、値を埋め込むことができ、可読性・保守性が向上します。
