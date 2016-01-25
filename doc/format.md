@@ -1,5 +1,5 @@
 #2.　フォーマット
-<img src="../image/string_course.014.jpeg" width="500px"><br>
+<img src="../image/string_course.011.jpeg" width="500px"><br>
 フォーマットとは、Stringで書かれた書式に値を埋め込みStringを生成する処理のことです。
 %から始まるprintfスタイルの書式は、
 printf、str.format、f補間子、String.format、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">Formatter</a>などで使用可能です。
