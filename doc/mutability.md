@@ -40,10 +40,11 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 ```
 ***
 <h3>1.5　StringBuffer/StringBuilder</h3>
-<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>
 <img src="../image/string_course.006.jpeg" width="500px"><br>
+<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>
 <img src="../image/string_course.007.jpeg" width="500px"><br>
 <img src="../image/string_course.008.jpeg" width="500px"><br>
+<img src="../image/string_course.009.jpeg" width="500px"><br>
 ```java
     /**
      * Removes the characters in a substring of this sequence.
@@ -115,8 +116,8 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
         }
     }
 ```
-<img src="../image/string_course.009.jpeg" width="500px"><br>
 <img src="../image/string_course.010.jpeg" width="500px"><br>
+<img src="../image/string_course.011.jpeg" width="500px"><br>
 ```scala
   @Test
   def testStringBuffer(): Unit = {
@@ -247,7 +248,7 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 ```
 ***
 <h3>1.6　StringJoiner</h3>
-<img src="../image/string_course.011.jpeg" width="500px"><br>
+<img src="../image/string_course.012.jpeg" width="500px"><br>
 StringJoinerはデリミタ（区切り文字）と任意で接頭辞・接尾辞を設定して、文字列を結合するクラスです。
 addメソッドで文字列を追加し、toStringでStringを出力するビルダークラスです。
 例えば、<a href="https://ja.wikipedia.org/wiki/Comma-Separated_Values" target="_blank">CSV、SSV、TSV</a>などを作成するときに有用です。
@@ -277,7 +278,7 @@ StringJoinerの中身はStringBuilderです。
 ```
 ***
 <h3>1.7　String.joinメソッド</h3>
-<img src="../image/string_course.012.jpeg" width="500px"><br>
+<img src="../image/string_course.013.jpeg" width="500px"><br>
 String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
 mkStringメソッドを組み合わせて使用することで、StringJoiner相当のことができます。<br>
 String.joinよりStringJoinerの方が高速であり、StringJoinerよりStringBuilderの方が高速だという報告が掲載されたブログの記事があります（<a href="http://d.hatena.ne.jp/nowokay/20140409" target="_blank">Java8時代の文字列連結まとめ</a>）。
@@ -301,6 +302,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 ```
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
+<img src="../image/string_course.014.jpeg" width="500px"><br>
 PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。<br>
 参考文献：<br>
 <a href="http://www.ne.jp/asahi/hishidama/home/tech/java/string.html#PrintWriter" target="_blank">PrintWriter/PrintStream</a>
@@ -341,7 +343,7 @@ PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字
 ```
 ***
 <h3>1.9　java.nio.Buffer</h3>
-<img src="../image/string_course.013.jpeg" width="500px"><br>
+<img src="../image/string_course.015.jpeg" width="500px"><br>
 java.nio.Bufferは主にBufferを継承したByteBuffer・CharBufferがエンコーダ・デコーダの内部で使用されます。
 StringBuilder・StringBufferではcapacityを超えてCharを追加しようとすると自動的にcapacityを増やしてくれますが、ByteBuffer・CharBufferではcapacityは増えずにオーバフローします。どの位置から読み込む/書き込むかというpositionとどの位置まで読み込める/書き込めるかというlimitを変化させながらデータを読み込んだり書き込んだりします。
 ```scala
