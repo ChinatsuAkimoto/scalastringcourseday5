@@ -45,7 +45,7 @@ java.lang.StringBufferやjava.lang.StringBuilderはjava.lang.AbstractStringBuild
 Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくscala.collection.mutable.StringBuilderです。java.lang.StringBuilderはscala.collection.mutable.StringBuilderの内部で使用されているためjava.lang.StringBuilderと同じAPIが利用できます。
 <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>
 <img src="../image/string_course.007.jpeg" width="500px"><br>
-末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。先頭に追加するprependメソッドはないが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。<br>
+末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。メソッドチェーンで記述できます。先頭に追加するprependメソッドはないですが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。<br>
 <img src="../image/string_course.008.jpeg" width="500px"><br>
 capacityはCharを入れるための容量（Char数）です。もしCharを入れすぎてcapacityを超えてもオーバーフローせずに自動的に新たに容量を増やします。新たに容量を獲得する処理がオーバーヘッドとして発生するので、capacityが不足すると処理速度が低下します。しかし、処理を高速化するために十分に容量を獲得してcapacityを大きく取りすぎるとメモリの領域を使い過ぎてしまいます。capacityを大きく取りすぎてメモリの領域を無駄に使用している場合はtrimToSizeメソッドで収容しているChar数=lengthにcapacityを揃えることができます。<br>
 <img src="../image/string_course.009.jpeg" width="500px"><br>
