@@ -318,3 +318,32 @@ XMLリテラルによるテンプレート処理については、<a href="#コ�
 ***
 <h3>コラム：XMLリテラルによるテンプレート処理</h3>
 XMLリテラルによってフォーマットや文字列補間子のように雛形に値を埋め込みStringを生成することができます。
+```scala
+  @Test
+  def testXmlTemplate(): Unit = {
+    val value1: Int = 123
+    val value2: String = "abc"
+    val value3: Boolean = true
+    val xml: Elem =
+      <template>
+        <line1>{value1}, {value2}, {value3}</line1>
+        <line2_line3>
+          {value2}, {value3}, {value1}
+          {value3}, {value1}, {value2}
+        </line2_line3>
+      </template>
+    val builder: StringBuilder = new StringBuilder()
+    val it: Iterator[String] = xml.text.lines
+    while (it.hasNext) {
+      val line: String = it.next.trim
+      builder.append('\n').append(line)
+    }
+
+    assert(builder.deleteCharAt(0).result() ==
+      """
+        |123, abc, true
+        |
+        |abc, true, 123
+        |true, 123, abc""".stripMargin.concat("\n\n"))
+  }
+```
