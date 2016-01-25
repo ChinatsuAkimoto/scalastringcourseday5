@@ -47,7 +47,9 @@ Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくsca
 <img src="../image/string_course.007.jpeg" width="500px"><br>
 末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。先頭に追加するprependメソッドはないが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。<br>
 <img src="../image/string_course.008.jpeg" width="500px"><br>
+capacityはCharを入れるための容量（Char数）です。もしCharを入れすぎてcapacityを超えてもオーバーフローせずに自動的に新たに容量を増やします。新たに容量を獲得する処理がオーバーヘッドとして発生するので、capacityが不足すると処理速度が低下します。しかし、処理を高速化するために十分に容量を獲得してcapacityを大きく取りすぎるとメモリの領域を使い過ぎてしまいます。capacityを大きく取りすぎてメモリの領域を無駄に使用している場合はtrimToSizeメソッドで収容しているChar数=lengthにcapacityを揃えることができます。<br>
 <img src="../image/string_course.009.jpeg" width="500px"><br>
+delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が高速なため一般に使用されます。setLength(0)/clearはポインタをずらしているだけ（下記のコードでは```count = newLength;```をしています）です。delete(0, length)ではlengthを取得する処理やSystem.arraycopyメソッドを使用しているため処理が遅くなります。
 ```java
     /**
      * Removes the characters in a substring of this sequence.
@@ -120,7 +122,14 @@ Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくsca
     }
 ```
 <img src="../image/string_course.010.jpeg" width="500px"><br>
+StringBufferはミュータブル（可変長）でスレッドセーフな文字列クラスです。
+全てのメソッドにsynchronized修飾子がついていて排他制御されています。
+排他制御されている分だけ処理が遅くなります。
+java.io.StringWriterの中身です。<br>
 <img src="../image/string_course.011.jpeg" width="500px"><br>
+StringBuilderはミュータブル（可変長）でスレッドアンセーフな文字列クラスです。
+java.lang.StringBuilderはscala.collection.mutable.StringBuilderの中身です。
+java.lang.StringBuilderはjava.lang.StringBufferとAPIの互換性が保たれるように設計されています。
 ```scala
   @Test
   def testStringBuffer(): Unit = {
