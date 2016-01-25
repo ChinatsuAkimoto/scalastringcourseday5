@@ -142,6 +142,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.3　DateFormatとSimpleDateFormat</h3>
+<img src="../image/string_course.017.jpeg" width="500px"><br>
 ```scala
   @Test
   def testDateFormat(): Unit = {
@@ -167,6 +168,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.4　NumberFormatとDecimalFormat</h3>
+<img src="../image/string_course.018.jpeg" width="500px"><br>
 ```scala
   @Test
   def testNumberFormat(): Unit = {
@@ -221,6 +223,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.5　ChoiceFormat</h3>
+<img src="../image/string_course.019.jpeg" width="500px"><br>
 ```scala
   @Test
   def testChoiceFormat1(): Unit = {
@@ -285,6 +288,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.6　MessageFormat</h3>
+<img src="../image/string_course.020.jpeg" width="500px"><br>
 ```scala
   @Test
   def testMessageFormat(): Unit = {
@@ -297,7 +301,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 ```
 ***
 <h3>2.7　テンプレートエンジン</h3>
-<img src="../image/string_course.017.jpeg" width="500px"><br>
+<img src="../image/string_course.021.jpeg" width="500px"><br>
 Javaでフォーマットで複数行の雛形を作成したい場合、書式内に```%n```または```\n```を含めたワンライナーで書く必要があります。
 そのような書式はとても読みづらく可読性・保守性の観点からよくありません。
 この場合、<a href="http://velocity.apache.org/" target="_blank">Apache Velocity</a>や<a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars.java</a>などのようなテンプレートエンジンを用いることで複数行の雛形を作成し、値を埋め込むことができ、可読性・保守性が向上します。
