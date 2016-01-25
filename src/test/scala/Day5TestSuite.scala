@@ -25,10 +25,17 @@ import scala.xml.Elem
 class Day5TestSuite extends AssertionsForJUnit {
 
   @Test
-  def testStringUnion(): Unit = {
+  def testStringUnion1(): Unit = {
     val str = "A"
 
     assert(str + "B" == "AB")
+  }
+
+  @Test
+  def testStringUnion2(): Unit = {
+    val str = "A"
+
+    assert(str.union("B") == "AB")
   }
 
   @Test
@@ -230,7 +237,6 @@ class Day5TestSuite extends AssertionsForJUnit {
     printStream.printf("%d\n", 123.asInstanceOf[java.lang.Integer])
 
     printStream.close()
-    println(byteArrayOutputStream.toString)
 
     assert(byteArrayOutputStream.toString ==
       """trueabc
