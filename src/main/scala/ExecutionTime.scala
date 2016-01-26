@@ -25,7 +25,8 @@ class ExecutionTime(val n: Int) {
 
   /**
     * 処理の平均実行時間を測定
-    *
+    * 引数のproc : => Unitは、call-by-name (delayed evaluation)なので複数回呼び出し可能
+		* 
     * @param proc 処理
     * @return 処理の平均実行時間
     */
