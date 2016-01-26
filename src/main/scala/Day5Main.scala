@@ -14,7 +14,7 @@ object Day5Main {
     val strB = "B"
     val strC = "C"
     val strD = "D"
-    println("+ vs union vs concat (1st round)")
+    println("+ vs union vs concat (round 1)")
     println("+")
     executionTime.printlnAverageExecutionTime(strA + strB)
     executionTime.printlnAverageExecutionTime(strA + strB)
@@ -28,7 +28,7 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(strA.concat(strB))
     executionTime.printlnAverageExecutionTime(strA.concat(strB))
     println()
-    println("+ vs union vs concat (2nd round)")
+    println("+ vs union vs concat (round 2)")
     println("+")
     executionTime.printlnAverageExecutionTime(strA + strB + strC)
     executionTime.printlnAverageExecutionTime(strA + strB + strC)
@@ -42,7 +42,7 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(strA.concat(strB.concat(strC)))
     executionTime.printlnAverageExecutionTime(strA.concat(strB.concat(strC)))
     println()
-    println("+ vs union vs concat (3rd round)")
+    println("+ vs union vs concat (round 3)")
     println("+")
     executionTime.printlnAverageExecutionTime(strA + strB + strC + strD)
     executionTime.printlnAverageExecutionTime(strA + strB + strC + strD)
@@ -70,7 +70,25 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(testJavaStringBuffer())
     executionTime.printlnAverageExecutionTime(testJavaStringBuffer())
     println()
-    println("StringBuilder vs StringJoiner vs String.join1 vs String.join2")
+    println("StringBuilder vs StringJoiner vs String.join1 vs String.join2 (round 1)")
+    println("StringBuilder")
+    executionTime.printlnAverageExecutionTime(testStringBuilderForJoiningPrefixSuffix())
+    executionTime.printlnAverageExecutionTime(testStringBuilderForJoiningPrefixSuffix())
+    executionTime.printlnAverageExecutionTime(testStringBuilderForJoiningPrefixSuffix())
+    println("StringJoiner")
+    executionTime.printlnAverageExecutionTime(testStringJoinerPrefixSuffix())
+    executionTime.printlnAverageExecutionTime(testStringJoinerPrefixSuffix())
+    executionTime.printlnAverageExecutionTime(testStringJoinerPrefixSuffix())
+    println("String.join1")
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix1())
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix1())
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix1())
+    println("String.join2")
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix2())
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix2())
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix2())
+    println()
+    println("StringBuilder vs StringJoiner vs String.join1 vs String.join2 (round 2)")
     println("StringBuilder")
     executionTime.printlnAverageExecutionTime(testStringBuilderForJoining())
     executionTime.printlnAverageExecutionTime(testStringBuilderForJoining())
@@ -126,11 +144,38 @@ object Day5Main {
     buffer.toString
   }
 
+  private def testStringBuilderForJoiningPrefixSuffix(): Unit = {
+    val builder: java.lang.StringBuilder = new java.lang.StringBuilder()
+    builder.append('[')
+    array foreach {
+      element =>
+        builder.append(',').append(element)
+    }
+    builder.append(']').deleteCharAt(0).toString
+  }
+
+  private def testStringJoinerPrefixSuffix(): Unit = {
+    val joiner: StringJoiner = new StringJoiner(",", "[", "]")
+    array foreach {
+      element =>
+        joiner.add(element)
+    }
+    joiner.toString
+  }
+
+  private def testStringJoinPrefixSuffix1(): Unit = {
+    String.join(",", array: _*).mkString("[", "", "]")
+  }
+
+  private def testStringJoinPrefixSuffix2(): Unit = {
+    String.join(",", scala.collection.JavaConversions.asJavaIterable(array.toIterable)).mkString("[", "", "]")
+  }
+
   private def testStringBuilderForJoining(): Unit = {
     val builder: java.lang.StringBuilder = new java.lang.StringBuilder()
     array foreach {
       element =>
-        builder.append(",").append(element)
+        builder.append(',').append(element)
     }
     builder.deleteCharAt(0).toString
   }
