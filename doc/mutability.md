@@ -16,13 +16,19 @@
 <img src="../image/string_course.004.jpeg" width="500px"><br>
 Stringはイミュータブルクラスなので、インスタンス化後に操作可能な変数がないためスレッドセーフです。
 StringBuilderとStringBufferはミュータブルクラスです。StringBuilderはスレッドアンセーフですが、StringBufferはスレッドセーフです。
-一見するとイミュータブルをミュータブル、スレッドアンセーフよりスレッドセーフの方が優れていて、常にミュータブルでスレッドセーフなStringBufferクラスだけを存在すればいいのではと思うかもしれません。しかし、イミュータブルをミュータブルにするとクラスに載せるメソッドが増えメモリを多く使います。スレッドアンセーフからスレッドセーフにすると排他制御のためのオーバヘッドが発生して同じ処理でもスレッドセーフの方が処理速度が落ちます。このようなトレードオフ（一方を追求すると一方を犠牲にせざるをえない状態）が発生するので、目的に合わせて使用するクラスを選択しましょう。
+一見するとイミュータブルをミュータブル、スレッドアンセーフよりスレッドセーフの方が優れていて、常にミュータブルでスレッドセーフなStringBufferクラスだけを存在すればいいのではと思うかもしれません。しかし、イミュータブルをミュータブルにするとクラスに載せるメソッドが増えメモリを多く使います。スレッドアンセーフからスレッドセーフにすると排他制御のためのオーバヘッドが発生します。
+
+> JDK 5以降、このクラスは単一のスレッドStringBuilderにより使用されるよう設計された等価のクラスで補足されています。StringBuilderクラスは、このクラスと同じ処理をすべてサポートしながらも高速であり、同期を実行しないので、通常はこのクラスに優先して使用される必要があります。
+
+（<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/StringBuffer.html" target="_blank">Java 8 StringBuffer</a>より）<br>
+（実際に処理速度にあまり大きな差があるのかは不明です。）このようなトレードオフ（一方を追求すると一方を犠牲にせざるをえない状態）が発生するので、目的に合わせて使用するクラスを選択しましょう。
 ***
 <h3>1.4　String</h3>
 <img src="../image/string_course.005.jpeg" width="500px"><br>
 Stringはイミュータブル（固定長）でスレッドセーフな文字列クラスです。
 ＋メソッドやunionメソッドで文字列を結合するときはSeqLikeで<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom" target="_blank">CanBuildFrom</a>を用いてミュータブルなビルダークラスmutable.Builderを生成して文字列を結合し、新しいインスタンスを生成しています。(JavaではStringBuilderが内部処理で使用されます。)
 新しいインスタンスを生成する点はconcatメソッドでも同様です。
+２つの文字列を結合するときはconcat、３つ以上の文字列を結合するときは+メソッドかStringBuilderを使用するのが高速です。unionメソッドによる結合は速度が落ちます。
 ```scala
   @Test
   def testStringUnion(): Unit = {
