@@ -161,8 +161,8 @@ object Day5Main {
     printWriter.printf("%d\n", 123.asInstanceOf[java.lang.Integer])
 
     printWriter.close()
-
     stringWriter.toString
+    stringWriter.close()
   }
 
   private def testPrintStream(): Unit = {
@@ -176,5 +176,6 @@ object Day5Main {
 
     printStream.close()
     byteArrayOutputStream.toString
+    byteArrayOutputStream.close()
   }
 }
