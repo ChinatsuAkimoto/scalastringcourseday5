@@ -4,7 +4,7 @@ object ExecutionTime {
     * 処理の平均実行時間をミリ秒単位で標準出力
     */
   def printlnAverageExecutionTime(executionTime: Long, n: Int): Unit = {
-    printf("%d [nano seconds] (the average of %,d times)%n", executionTime, n)
+    printf("%,d [nano seconds] (the average of %,d times)%n", executionTime, n)
   }
 }
 
