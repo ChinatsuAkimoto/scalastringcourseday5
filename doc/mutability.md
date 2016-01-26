@@ -295,7 +295,7 @@ StringJoinerの中身はStringBuilderです。
 <h3>1.7　String.joinメソッド</h3>
 <img src="../image/string_course.013.jpeg" width="500px"><br>
 String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
-mkStringメソッドを組み合わせて使用することで、StringJoiner相当のことができますが、mkStringメソッドの処理分だけ速度が遅くなるので素直にStringJoinerを使用することをお勧めします。<br>
+mkStringメソッドを組み合わせて使用することでStringJoiner相当のことができますが、mkStringメソッドの処理分だけ速度が遅くなるので素直にStringJoinerを使用することをお勧めします。<br>
 String.joinよりStringJoinerの方が高速であり、StringJoinerよりStringBuilderの方が高速だという報告が掲載されたブログの記事があります（<a href="http://d.hatena.ne.jp/nowokay/20140409" target="_blank">Java8時代の文字列連結まとめ</a>）。
 String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。Iterableを引数とするメソッドを使用した場合、ScalaのコレクションをJavaのIterableに変換する処理が発生するため、その分だけ処理速度が遅くなります。可変長引数に関するのJavaとScalaの間の互換性については、<a href="#コラム可変長引数に関するのjavascala互換性">コラム：可変長引数に関するのJava/Scala互換性</a>、コレクションに関するJavaとScalaの間の互換性については、<a href="#コラムコレクションに関するjavascala互換性">コラム：コレクションに関するJava/Scala互換性</a>を参照ください。
 ```scala
@@ -317,7 +317,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
 <img src="../image/string_course.014.jpeg" width="500px"><br>
-PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。<br>
+PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。PrintWriterを使用する方が高速です。<br>
 参考文献：<br>
 <a href="http://www.ne.jp/asahi/hishidama/home/tech/java/string.html#PrintWriter" target="_blank">PrintWriter/PrintStream</a>
 ```scala
