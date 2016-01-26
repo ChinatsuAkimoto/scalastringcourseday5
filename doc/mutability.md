@@ -54,77 +54,7 @@ Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくsca
 <img src="../image/string_course.008.jpeg" width="500px"><br>
 capacityはCharを入れるための容量（Char数）です。コンストラクタからインスタンス生成時にcapacityを指定することができます。特に指定しない場合デフォルトコンストラクタによりcapacityは16に設定されます。インスタンス生成後にもしCharを入れすぎてcapacityを超えてもオーバーフローせずに自動的に新たに容量を増やします。新たに容量を獲得する処理がオーバーヘッドとして発生するので、capacityが不足すると処理速度が低下します。しかし、処理を高速化するために十分に容量を獲得してcapacityを大きく取りすぎるとメモリの領域を使い過ぎてしまいます。capacityを大きく取りすぎてメモリの領域を無駄に使用している場合はtrimToSizeメソッドで収容しているChar数=lengthにcapacityを揃えることができます。<br>
 <img src="../image/string_course.009.jpeg" width="500px"><br>
-delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が一般に使用されているようです。setLength(0)/clearはポインタをずらしているだけ（下記のコードでは```count = newLength;```をしています）です。
-なお、下記のコードはOracle Javaではなく<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/java/lang/AbstractStringBuilder.java" target="_blank">OpenJDKのJava 8のjava.lang.AbstractStringBuilderのソースコード</a>からのdeleteメソッドとsetLengthメソッドについての引用です。
-```java
-    /**
-     * Removes the characters in a substring of this sequence.
-     * The substring begins at the specified {@code start} and extends to
-     * the character at index {@code end - 1} or to the end of the
-     * sequence if no such character exists. If
-     * {@code start} is equal to {@code end}, no changes are made.
-     *
-     * @param      start  The beginning index, inclusive.
-     * @param      end    The ending index, exclusive.
-     * @return     This object.
-     * @throws     StringIndexOutOfBoundsException  if {@code start}
-     *             is negative, greater than {@code length()}, or
-     *             greater than {@code end}.
-     */
-    public AbstractStringBuilder delete(int start, int end) {
-        if (start < 0)
-            throw new StringIndexOutOfBoundsException(start);
-        if (end > count)
-            end = count;
-        if (start > end)
-            throw new StringIndexOutOfBoundsException();
-        int len = end - start;
-        if (len > 0) {
-            System.arraycopy(value, start+len, value, start, count-end);
-            count -= len;
-        }
-        return this;
-    }
-```
-
-```java
-   /**
-     * Sets the length of the character sequence.
-     * The sequence is changed to a new character sequence
-     * whose length is specified by the argument. For every nonnegative
-     * index <i>k</i> less than {@code newLength}, the character at
-     * index <i>k</i> in the new character sequence is the same as the
-     * character at index <i>k</i> in the old sequence if <i>k</i> is less
-     * than the length of the old character sequence; otherwise, it is the
-     * null character {@code '\u005Cu0000'}.
-     *
-     * In other words, if the {@code newLength} argument is less than
-     * the current length, the length is changed to the specified length.
-     * <p>
-     * If the {@code newLength} argument is greater than or equal
-     * to the current length, sufficient null characters
-     * ({@code '\u005Cu0000'}) are appended so that
-     * length becomes the {@code newLength} argument.
-     * <p>
-     * The {@code newLength} argument must be greater than or equal
-     * to {@code 0}.
-     *
-     * @param      newLength   the new length
-     * @throws     IndexOutOfBoundsException  if the
-     *               {@code newLength} argument is negative.
-     */
-    public void setLength(int newLength) {
-        if (newLength < 0)
-            throw new StringIndexOutOfBoundsException(newLength);
-        ensureCapacityInternal(newLength);
-
-        if (count < newLength) {
-            Arrays.fill(value, count, newLength, '\0');
-        }
-
-        count = newLength;
-    }
-```
+delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が一般に使用されているようです。setLength(0)/clearはポインタをずらしています。deleteメソッドはSystem.arraycopyメソッドを使用しています。
 <img src="../image/string_course.010.jpeg" width="500px"><br>
 StringBufferはミュータブル（可変長）でスレッドセーフな文字列クラスです。
 全てのメソッドにsynchronized修飾子がついていて排他制御されています。
