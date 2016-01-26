@@ -128,7 +128,6 @@ delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄しま�
 <img src="../image/string_course.010.jpeg" width="500px"><br>
 StringBufferはミュータブル（可変長）でスレッドセーフな文字列クラスです。
 全てのメソッドにsynchronized修飾子がついていて排他制御されています。
-排他制御されている分だけ処理が遅くなります。
 java.io.StringWriterの中身です。<br>
 <img src="../image/string_course.011.jpeg" width="500px"><br>
 StringBuilderはミュータブル（可変長）でスレッドアンセーフな文字列クラスです。
