@@ -317,7 +317,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
 <img src="../image/string_course.014.jpeg" width="500px"><br>
-PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。PrintWriterを使用する方が高速です。<br>
+PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。PrintWriterを使用する方がPrintStreamを使用するより高速です。<br>
 参考文献：<br>
 <a href="http://www.ne.jp/asahi/hishidama/home/tech/java/string.html#PrintWriter" target="_blank">PrintWriter/PrintStream</a>
 ```scala
