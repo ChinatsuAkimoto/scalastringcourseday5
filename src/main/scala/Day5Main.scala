@@ -1,5 +1,8 @@
 import java.io.{PrintStream, ByteArrayOutputStream, StringWriter, PrintWriter}
-import java.util.StringJoiner
+import java.text.{DateFormat, SimpleDateFormat}
+import java.time.{LocalDateTime, ZonedDateTime}
+import java.time.format.DateTimeFormatter
+import java.util.{Calendar, Date, StringJoiner}
 
 /**
   * @author ynupc
@@ -7,6 +10,14 @@ import java.util.StringJoiner
   */
 object Day5Main {
   private val array: Array[String] = Array[String]("abc", "cde", "efg")
+  private val dateTimeFormat: String = "yyyy/MM/dd HH:mm:ss"
+  private val dateTime: String = "2045/12/03 01:47:04"
+  private val date: Date = new Date()
+  private val calendar: Calendar = Calendar.getInstance()
+  private val zonedDateTime: ZonedDateTime = ZonedDateTime.now
+  private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(dateTimeFormat)
+  private val simpleDateFormat: SimpleDateFormat = new SimpleDateFormat(dateTimeFormat)
+  private val dateFormat: DateFormat = DateFormat.getInstance()
 
   def main(args: Array[String]): Unit = {
     val executionTime: ExecutionTime = new ExecutionTime(1000000)
@@ -69,6 +80,46 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(testJavaStringBuffer())
     executionTime.printlnAverageExecutionTime(testJavaStringBuffer())
     executionTime.printlnAverageExecutionTime(testJavaStringBuffer())
+    val str: String = "ScalaStringBuilder.clear vs JavaStringBuilder.setLength(0) vs JavaStringBuilder.delete(0, length) vs JavaStringBuffer.setLength(0) vs JavaStringBuffer.delete(0, length)"
+    println(str)
+    println("ScalaStringBuilder.clear")
+    val scalaStringBuilder = new StringBuilder()
+    scalaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(scalaStringBuilder.clear)
+    scalaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(scalaStringBuilder.clear)
+    scalaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(scalaStringBuilder.clear)
+    println("JavaStringBuilder.setLength(0)")
+    val javaStringBuilder = new java.lang.StringBuilder()
+    javaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuilder.setLength(0))
+    javaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuilder.setLength(0))
+    javaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuilder.setLength(0))
+    println("JavaStringBuilder.delete(0, length)")
+    javaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuilder.delete(0, str.length))
+    javaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuilder.delete(0, str.length))
+    javaStringBuilder.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuilder.delete(0, str.length))
+    println("JavaStringBuffer.setLength(0)")
+    val javaStringBuffer = new java.lang.StringBuffer()
+    javaStringBuffer.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuffer.setLength(0))
+    javaStringBuffer.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuffer.setLength(0))
+    javaStringBuffer.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuffer.setLength(0))
+    println("JavaStringBuffer.delete(0, length)")
+    javaStringBuffer.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuffer.delete(0, str.length))
+    javaStringBuffer.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuffer.delete(0, str.length))
+    javaStringBuffer.append(str)
+    executionTime.printlnAverageExecutionTime(javaStringBuffer.delete(0, str.length))
     println()
     println("StringBuilder vs StringJoiner vs String.join1 vs String.join2 (round 1)")
     println("StringBuilder")
@@ -115,6 +166,56 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(testPrintStream())
     executionTime.printlnAverageExecutionTime(testPrintStream())
     executionTime.printlnAverageExecutionTime(testPrintStream())
+    println()
+    println("DateTimeFormatter vs SimpleDateFormat vs DateFormat (round 1: instantiation)")
+    println("DateTimeFormatter")
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterInstantiation())
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterInstantiation())
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterInstantiation())
+    println("SimpleDateFormat")
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatInstantiation())
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatInstantiation())
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatInstantiation())
+    println("DateFormat")
+    executionTime.printlnAverageExecutionTime(testDateFormatInstantiation())
+    executionTime.printlnAverageExecutionTime(testDateFormatInstantiation())
+    executionTime.printlnAverageExecutionTime(testDateFormatInstantiation())
+    println()
+    println("DateTimeFormatter vs SimpleDateFormat vs DateFormat vs String (round 2: format)")
+    println("DateTimeFormatter")
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterFormat())
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterFormat())
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterFormat())
+    println("SimpleDateFormat")
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatFormat())
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatFormat())
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatFormat())
+    println("DateFormat")
+    executionTime.printlnAverageExecutionTime(testDateFormatFormat())
+    executionTime.printlnAverageExecutionTime(testDateFormatFormat())
+    executionTime.printlnAverageExecutionTime(testDateFormatFormat())
+    println("String")
+    executionTime.printlnAverageExecutionTime(testStringFormat())
+    executionTime.printlnAverageExecutionTime(testStringFormat())
+    executionTime.printlnAverageExecutionTime(testStringFormat())
+    println()
+    println("DateTimeFormatter vs SimpleDateFormat vs DateFormat vs LocalDateTime (round 3: parse)")
+    println("DateTimeFormatter")
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterParse())
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterParse())
+    executionTime.printlnAverageExecutionTime(testDateTimeFormatterParse())
+    println("SimpleDateFormat")
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatParse())
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatParse())
+    executionTime.printlnAverageExecutionTime(testSimpleDateFormatParse())
+    println("DateFormat")
+    executionTime.printlnAverageExecutionTime(testDateFormatParse())
+    executionTime.printlnAverageExecutionTime(testDateFormatParse())
+    executionTime.printlnAverageExecutionTime(testDateFormatParse())
+    println("LocalDateTime")
+    executionTime.printlnAverageExecutionTime(testLocalDateTimeParse())
+    executionTime.printlnAverageExecutionTime(testLocalDateTimeParse())
+    executionTime.printlnAverageExecutionTime(testLocalDateTimeParse())
   }
 
   private def testScalaStringBuilder(): Unit = {
@@ -222,5 +323,49 @@ object Day5Main {
     printStream.close()
     byteArrayOutputStream.toString
     byteArrayOutputStream.close()
+  }
+
+  private def testDateTimeFormatterInstantiation(): Unit = {
+    DateTimeFormatter.ofPattern(dateTimeFormat)
+  }
+
+  private def testSimpleDateFormatInstantiation(): Unit = {
+    new SimpleDateFormat(dateTimeFormat)
+  }
+
+  private def testDateFormatInstantiation(): Unit = {
+    DateFormat.getDateTimeInstance()
+  }
+
+  private def testDateTimeFormatterFormat(): Unit = {
+    dateTimeFormatter.format(zonedDateTime)
+  }
+
+  private def testSimpleDateFormatFormat(): Unit = {
+    simpleDateFormat.format(date)
+  }
+
+  private def testDateFormatFormat(): Unit = {
+    dateFormat.format(date)
+  }
+
+  private def testStringFormat(): Unit = {
+    dateTimeFormat.format(date)
+  }
+
+  private def testDateTimeFormatterParse(): Unit = {
+    dateTimeFormatter.parse(dateTime)
+  }
+
+  private def testSimpleDateFormatParse(): Unit = {
+    simpleDateFormat.parse(dateTime)
+  }
+
+  private def testDateFormatParse(): Unit = {
+    dateFormat.parse(dateTime)
+  }
+
+  private def testLocalDateTimeParse(): Unit = {
+    LocalDateTime.parse(dateTime, dateTimeFormatter)
   }
 }
