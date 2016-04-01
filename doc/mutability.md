@@ -243,6 +243,15 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
     assert(String.join(", ", iterable) == "abc, cde, efg")
     assert(String.join(", ", iterable).mkString("[", "", "]") == "[abc, cde, efg]")
   }
+  
+  @Test
+  def testStringJoin3(): Unit = {
+    val array = Array[String]("abc", "cde", "efg")
+    import scala.collection.JavaConverters._
+    val iterable: java.lang.Iterable[String] = array.toIterable.asJava
+    assert(String.join(", ", iterable) == "abc, cde, efg")
+    assert(String.join(", ", iterable).mkString("[", "", "]") == "[abc, cde, efg]")
+  }
 ```
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
