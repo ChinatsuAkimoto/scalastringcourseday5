@@ -138,6 +138,10 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix2())
     executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix2())
     executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix2())
+    println("String.join3")
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix3())
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix3())
+    executionTime.printlnAverageExecutionTime(testStringJoinPrefixSuffix3())
     println()
     println("StringBuilder vs StringJoiner vs String.join1 vs String.join2 (round 2)")
     println("StringBuilder")
@@ -156,6 +160,10 @@ object Day5Main {
     executionTime.printlnAverageExecutionTime(testStringJoin2())
     executionTime.printlnAverageExecutionTime(testStringJoin2())
     executionTime.printlnAverageExecutionTime(testStringJoin2())
+    println("String.join3")
+    executionTime.printlnAverageExecutionTime(testStringJoin3())
+    executionTime.printlnAverageExecutionTime(testStringJoin3())
+    executionTime.printlnAverageExecutionTime(testStringJoin3())
     println()
     println("PrintWriter vs PrintStream")
     println("PrintWriter")
@@ -272,6 +280,11 @@ object Day5Main {
     String.join(",", scala.collection.JavaConversions.asJavaIterable(array.toIterable)).mkString("[", "", "]")
   }
 
+  private def testStringJoinPrefixSuffix3(): Unit = {
+    import scala.collection.JavaConverters._
+    String.join(",", array.toIterable.asJava).mkString("[", "", "]")
+  }
+
   private def testStringBuilderForJoining(): Unit = {
     val builder: java.lang.StringBuilder = new java.lang.StringBuilder()
     array foreach {
@@ -296,6 +309,11 @@ object Day5Main {
 
   private def testStringJoin2(): Unit = {
     String.join(",", scala.collection.JavaConversions.asJavaIterable(array.toIterable))
+  }
+
+  private def testStringJoin3(): Unit = {
+    import scala.collection.JavaConverters._
+    String.join(",", array.toIterable.asJava)
   }
 
   private def testPrintWriter(): Unit = {
