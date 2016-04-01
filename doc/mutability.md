@@ -227,7 +227,7 @@ StringJoinerの中身はStringBuilderです。
 String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
 mkStringメソッドを組み合わせて使用することでStringJoiner相当のことができますが、mkStringメソッドの処理分だけ速度が遅くなるので素直にStringJoinerを使用することをお勧めします。<br>
 String.joinよりStringJoinerの方が高速であり、StringJoinerよりStringBuilderの方が高速だという報告が掲載されたブログの記事があります（<a href="http://d.hatena.ne.jp/nowokay/20140409" target="_blank">Java8時代の文字列連結まとめ</a>）。
-String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。Iterableを引数とするメソッドを使用した場合、ScalaのコレクションをJavaのIterableに変換する処理が発生するため、その分だけ処理速度が遅くなります。可変長引数に関するのJavaとScalaの間の互換性については、<a href="#コラム可変長引数に関するのjavascala互換性">コラム：可変長引数に関するのJava/Scala互換性</a>、コレクションに関するJavaとScalaの間の互換性については、<a href="#コラムコレクションに関するjavascala互換性">コラム：コレクションに関するJava/Scala互換性</a>を参照ください。
+String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。Iterableを引数とするメソッドを使用した場合、ScalaのコレクションをJavaのIterableに変換する処理が発生するため、その分だけ処理速度が遅くなります。可変長引数に関するのJavaとScalaの間の互換性については、<a href="#コラム可変長引数に関するのjavascala互換性">コラム：可変長引数に関するのJava/Scala互換性</a>、コレクションに関するJavaとScalaの間の互換性については、<a href="#コラムコレクションに関するjavascala互換性">コラム：コレクションに関するJava/Scala互換性</a>、String.joinメソッドの引数はjava.lang.Iteratorではなくjava.lang.Iterableですが、java.lang.Iteratorとjava.lang.Iterableの違いについては<a href="">コラム：java.lang.Iteratorとjava.lang.Iterableの違い</a>を参照ください。
 ```scala
   @Test
   def testStringJoin1(): Unit = {
@@ -506,3 +506,5 @@ ScalaからJavaのコレクションを呼び出したいとき、もしくはJa
 参考文献：<br>
 <a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a><br>
 <a href="http://d.hatena.ne.jp/xuwei/20160327/1459108797" target="_blank">scala.collection.JavaConversionsが非推奨になるかもしれないらしい</a>
+***
+<h3>コラム：java.lang.Iteratorとjava.lang.Iterableの違い</h3>
