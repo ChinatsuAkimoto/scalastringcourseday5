@@ -508,3 +508,5 @@ ScalaからJavaのコレクションを呼び出したいとき、もしくはJa
 <a href="http://d.hatena.ne.jp/xuwei/20160327/1459108797" target="_blank">scala.collection.JavaConversionsが非推奨になるかもしれないらしい</a>
 ***
 <h3>コラム：java.util.Iteratorとjava.lang.Iterableの違い</h3>
+<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/Iterator.html" target="_blank">java.util.Iterator</a>はイテレータのインターフェースです。これを実装するとイテレータになります。<br>
+<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Iterable.html" target="_blank">java.lang.Iterable</a>はイテレータを返すiteratorメソッドを持つことを保証します。Iterableを実装しているクラスはJavaでfor-each文が書けます。<br>
