@@ -1,5 +1,3 @@
-package day5
-
 import java.io.{PrintStream, ByteArrayOutputStream, PrintWriter, StringWriter}
 import java.nio.charset._
 import java.nio.{ByteBuffer, CharBuffer}
@@ -638,7 +636,7 @@ class Day5TestSuite extends AssertionsForJUnit {
   @Test
   def multiThread1(): Unit = {
     for (i <- list.par) {
-      val thread: Thread = new Thread(new ThreadExample(s"example1-threadNumber$i"))
+      val thread: Thread = new Thread(new ThreadExample(s"ThreadExample1-threadNumber$i"))
       thread.start()
     }
   }
@@ -650,7 +648,7 @@ class Day5TestSuite extends AssertionsForJUnit {
   def multiThread2(): Unit = {
     for (i <- list.par) {
       val executor: ExecutorService = Executors.newSingleThreadExecutor()
-      executor.execute(new ThreadExample(s"example2-threadNumber$i"))
+      executor.execute(new ThreadExample(s"ConcurrentExample2-threadNumber$i"))
       executor.shutdown()
     }
   }
@@ -673,7 +671,7 @@ class Day5TestSuite extends AssertionsForJUnit {
   def multiThread3(): Unit = {
     val system: ActorSystem = ActorSystem("actor-example")
     for (i <- list.par) {
-      val actor: ActorRef = system.actorOf(Props(new ActorExample()), s"actorExample$i")
+      val actor: ActorRef = system.actorOf(Props(new ActorExample()), s"ActorExample$i")
       actor ! s"example3-actorNumber$i"
     }
     Await.result(system.whenTerminated, Duration.Inf)
