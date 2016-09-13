@@ -54,7 +54,7 @@ Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくsca
 <img src="../image/string_course.008.jpeg" width="500px"><br>
 capacityはCharを入れるための容量（Char数）です。コンストラクタからインスタンス生成時にcapacityを指定することができます。特に指定しない場合デフォルトコンストラクタによりcapacityは16に設定されます。インスタンス生成後にもしCharを入れすぎてcapacityを超えてもオーバーフローせずに自動的に新たに容量を増やします。新たに容量を獲得する処理がオーバーヘッドとして発生するので、capacityが不足すると処理速度が低下します。しかし、処理を高速化するために十分に容量を獲得してcapacityを大きく取りすぎるとメモリの領域を使い過ぎてしまいます。capacityを大きく取りすぎてメモリの領域を無駄に使用している場合はtrimToSizeメソッドで収容しているChar数=lengthにcapacityを揃えることができます。<br>
 <img src="../image/string_course.009.jpeg" width="500px"><br>
-delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が一般に使用されているようです。setLength(0)/clearはポインタをずらしています。deleteメソッドはSystem.arraycopyメソッドを使用しています。
+delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が一般に使用されているようです。setLength(0)/clearはポインタをずらしています。deleteメソッドはSystem.arraycopyメソッドを使用しています。<br>
 <img src="../image/string_course.010.jpeg" width="500px"><br>
 StringBufferはミュータブル（可変長）でスレッドセーフな文字列クラスです。
 全てのメソッドにsynchronized修飾子がついていて排他制御されています。
