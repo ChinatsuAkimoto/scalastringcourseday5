@@ -1,4 +1,4 @@
-#1.　ミュータビリティ
+# 1.　ミュータビリティ
 <h3>1.1　ミュータビリティ</h3>
 <img src="../image/string_course.002.jpeg" width="500px"><br>
 ミュータビリティとは可変性・不変性を示す言葉です。ミュータブルは可変性を意味し、イミュータブルは固定性を意味します。変数がインスタンス化後に変更可能なクラスをミュータブルクラス、変更不可能なクラスをイミュータブルクラスと呼びます。コレクションのクラスではミュータブルは可変長、イミュータブルは固定長を意味します。<br>
@@ -29,6 +29,7 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 ＋メソッドやunionメソッドで文字列を結合するときはSeqLikeで<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom" target="_blank">CanBuildFrom</a>を用いてミュータブルなビルダークラスmutable.Builderを生成して文字列を結合し、新しいインスタンスを生成しています。(JavaではStringBuilderが内部処理で使用されます。)
 新しいインスタンスを生成する点はconcatメソッドでも同様です。
 ２つの文字列を結合するときはconcat、３つ以上の文字列を結合するときは+メソッドかStringBuilderを使用するのが高速です。unionメソッドによる結合は速度が落ちます。
+
 ```scala
   @Test
   def testStringUnion(): Unit = {
@@ -63,6 +64,7 @@ java.io.StringWriterの中身です。<br>
 StringBuilderはミュータブル（可変長）でスレッドアンセーフな文字列クラスです。
 java.lang.StringBuilderはscala.collection.mutable.StringBuilderの中身です。
 java.lang.StringBuilderはjava.lang.StringBufferとAPIの互換性が保たれるように設計されています。
+
 ```scala
   @Test
   def testStringBuffer(): Unit = {
@@ -198,6 +200,7 @@ StringJoinerはデリミタ（区切り文字）と任意で接頭辞・接尾�
 addメソッドで文字列を追加し、toStringでStringを出力するビルダークラスです。
 例えば、<a href="https://ja.wikipedia.org/wiki/Comma-Separated_Values" target="_blank">CSV、SSV、TSV</a>などを作成するときに有用です。
 StringJoinerの中身はStringBuilderです。
+
 ```scala
   @Test
   def testStringJoiner1(): Unit = {
@@ -228,6 +231,7 @@ String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与える
 mkStringメソッドを組み合わせて使用することでStringJoiner相当のことができますが、mkStringメソッドの処理分だけ速度が遅くなるので素直にStringJoinerを使用することをお勧めします。<br>
 String.joinよりStringJoinerの方が高速であり、StringJoinerよりStringBuilderの方が高速だという報告が掲載されたブログの記事があります（<a href="http://d.hatena.ne.jp/nowokay/20140409" target="_blank">Java8時代の文字列連結まとめ</a>）。
 String.joinはJavaの可変長引数メソッドとIterableを引数とするメソッドの２つありますが、どちらもScalaで使用する場合はJavaとの互換性を考慮する必要があります。Iterableを引数とするメソッドを使用した場合、ScalaのコレクションをJavaのIterableに変換する処理が発生するため、その分だけ処理速度が遅くなります。可変長引数に関するのJavaとScalaの間の互換性については、<a href="#コラム可変長引数に関するのjavascala互換性">コラム：可変長引数に関するのJava/Scala互換性</a>、コレクションに関するJavaとScalaの間の互換性については、<a href="#コラムコレクションに関するjavascala互換性">コラム：コレクションに関するJava/Scala互換性</a>を参照ください。さらに、String.joinメソッドの引数はjava.util.Iteratorではなくjava.lang.Iterableですが、java.util.Iteratorとjava.lang.Iterableの違いについては<a href="#コラムjavautiliteratorとjavalangiterableの違い">コラム：java.util.Iteratorとjava.lang.Iterableの違い</a>を参照ください。
+
 ```scala
   @Test
   def testStringJoin1(): Unit = {
@@ -259,6 +263,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。PrintWriterを使用する方がPrintStreamを使用するより高速です。<br>
 参考文献：<br>
 <a href="http://www.ne.jp/asahi/hishidama/home/tech/java/string.html#PrintWriter" target="_blank">PrintWriter/PrintStream</a>
+
 ```scala
   @Test
   def testPrintWriter(): Unit = {
@@ -299,6 +304,7 @@ PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字
 <img src="../image/string_course.015.jpeg" width="500px"><br>
 java.nio.Bufferは主にBufferを継承したByteBuffer・CharBufferがエンコーダ・デコーダの内部で使用されます。
 StringBuilder・StringBufferではcapacityを超えてCharを追加しようとすると自動的にcapacityを増やしてくれますが、ByteBuffer・CharBufferではcapacityは増えずにオーバフローします。どの位置から読み込む/書き込むかというpositionとどの位置まで読み込める/書き込めるかというlimitを変化させながらデータを読み込んだり書き込んだりします。
+
 ```scala
   private val utf8ByteArray1ForBufferTest: Array[Byte] =
     for (byte <- Array[Int](
@@ -421,6 +427,7 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
   <li><a href="https://twitter.github.io/scala_school/concurrency.html" target="_blank">Concurrency in Scala</a></li>
   <li><a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target=_blank">Actors</a></li>
 </ul>
+
 ```scala
   private class ObjectExample(private var data: Int) {
     def increment(): Unit = {
