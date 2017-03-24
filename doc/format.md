@@ -1,4 +1,4 @@
-#2.　フォーマット
+# 2.　フォーマット
 <img src="../image/string_course.016.jpeg" width="500px"><br>
 フォーマットとは、Stringで書かれた書式に値を埋め込みStringを生成する処理のことです。
 %から始まるprintfスタイルの書式は、
@@ -9,6 +9,7 @@ printfスタイルの書式の定義は<a href="http://docs.oracle.com/javase/jp
 <h3>2.1　Stringのformatメソッド</h3>
 <img src="../image/string_course.017.jpeg" width="500px"><br>
 Java由来のstaticなString.formatメソッドとScalaで使用可能な非staticなformatメソッドがあるが、staticなString.formatメソッドにはJavaとの互換性の問題が発生するため、Scalaでは非staticなformatメソッドを使用するべきでしょう。
+
 ```scala
   @Test
   def testFormat1(): Unit = {
@@ -18,6 +19,7 @@ Java由来のstaticなString.formatメソッドとScalaで使用可能な非stat
   }
 ```
 printfスタイルの書式の定義は膨大なので、代表的な書式についてのみサンプルコードにまとめます。
+
 ```scala
   @Test
   def testFormat2(): Unit = {
@@ -121,6 +123,7 @@ DateTimeFormatterは日付・時刻に関するフォーマット及びバース
 String.formatではZonedDateTimeクラスではなくDateクラスを与えることでフォーマットすることができます。
 DateTimeFormatterと同様の処理をSimpleDateFormatで実現できますが、
 SimpleDateFormatはスレッドアンセーフでありながらスレッドセーフなDateTimeFormatterより処理速度が遅いためSimpleDateFormatの使用はお勧めできません（参考文献：<a href="http://www.ne.jp/asahi/hishidama/home/tech/java/DateTimeFormatter.html" target="_blank">日付時刻フォーマッター</a>）。DateTimeFormatterはJava 8から導入されたためJava 7以前でスレッドセーフな日付・時刻フォーマッターが欲しい場合は、自作されるか、<a href="https://commons.apache.org/proper/commons-lang/" target="_blank">Apache Commons Lang</a>の<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/FastDateFormat.html" target="_blank">FastDateFormat</a>クラス、<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/FastDateParser.html" target="_blank">FastDateParser</a>クラス、<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/time/FastDatePrinter.html" target="_blank">FastDatePrinter</a>クラスを使用すると良いでしょう。
+
 ```scala
   @Test
   def testDateTimeFormatter(): Unit = {
@@ -144,6 +147,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 <h3>2.3　DateFormatとSimpleDateFormat</h3>
 <img src="../image/string_course.019.jpeg" width="500px"><br>
 スレッドセーフティと処理速度の両点で勝っているDateTimeFormatterを使いましょう。日付、時刻、日付・時刻のparse/formatができます。getDateInstance（日付）、getTimeInstance（時刻）、getDateTimeInstance（日付・時刻）でインスタンスを生成します。SimpleDateFormatはDateTimeFormatterと同様のフォーマットでparse/formatできます。
+
 ```scala
   @Test
   def testDateFormat(): Unit = {
@@ -173,6 +177,7 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
 NumberFormatは整数、通貨、%表記に関するformat/parseができます。getIntegerInstance（整数）、getCurrencyInstance（通貨）、getPercentInstance（%）でインスタンスを生成します。
 ロケールに合わせて通貨コードも取得できます。
 DecimalFormatはNumberFormatのgetIntegerInstanceです。
+
 ```scala
   @Test
   def testNumberFormat(): Unit = {
@@ -229,6 +234,7 @@ DecimalFormatはNumberFormatのgetIntegerInstanceです。
 <h3>2.5　ChoiceFormat</h3>
 <img src="../image/string_course.021.jpeg" width="500px"><br>
 値の範囲にラベルをつけて、parse/formatができます。
+
 ```scala
   @Test
   def testChoiceFormat1(): Unit = {
@@ -296,6 +302,7 @@ DecimalFormatはNumberFormatのgetIntegerInstanceです。
 <img src="../image/string_course.022.jpeg" width="500px"><br>
 引数番号を指定して値を埋めるparse/formatができます。
 DateFormat、NumberFormat、DecimalFormat、ChoiceFormatで扱うフォーマットは全てMessageFormatで扱うことができます。
+
 ```scala
   @Test
   def testMessageFormat(): Unit = {
@@ -318,6 +325,7 @@ XMLリテラルによるテンプレート処理については、<a href="#コ�
 ***
 <h3>コラム：XMLリテラルによるテンプレート処理</h3>
 XMLリテラルによってフォーマットや文字列補間子のように雛形に値を埋め込みStringを生成することができます。XML形式のStringとしてtoStringメソッドを用いて出力するならScala XMLの本来の使用目的の範囲内ですが、textメソッドによってテンプレート処理として使用するのは本来の使用目的の範囲外なのでお勧めはできません。
+
 ```scala
   @Test
   def testXmlTemplate(): Unit = {
