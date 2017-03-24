@@ -2,6 +2,7 @@
 <h3>1.1　ミュータビリティ</h3>
 <img src="../image/string_course.002.jpeg" width="500px"><br>
 ミュータビリティとは可変性・不変性を示す言葉です。ミュータブルは可変性を意味し、イミュータブルは固定性を意味します。変数がインスタンス化後に変更可能なクラスをミュータブルクラス、変更不可能なクラスをイミュータブルクラスと呼びます。コレクションのクラスではミュータブルは可変長、イミュータブルは固定長を意味します。<br>
+
 ***
 <h3>1.2　スレッドセーフティ</h3>
 <img src="../image/string_course.003.jpeg" width="500px"><br>
@@ -11,6 +12,7 @@
 この時、スレッドAが操作している時に変数vをスレッドBが操作できないように制御（排他制御）されている状態はスレッドセーフであり、スレッドAが操作している時に変数vをスレッドBが操作できる状態はスレッドアンセーフです。<br>
 排他制御の方法として、変数をコンストラクタでの初期化以外変更できないようにする方法（テレスコーピングコンストラクタパターン）や変数を全てprivateにし（テレスコーピングコンストラクタパターン以外、JavaBeansパターンやビルダーパターンなど）変数を操作するメソッド全てにsynchronizedをつける方法があります。<br>
 テレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターンについては、<a href="#コラムテレスコーピングコンストラクタパターンjavabeansパターンビルダーパターン">コラム：テレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターン</a>を参照ください。マルチスレッドプログラミングについては、<a href="#コラムマルチスレッドプログラミング">コラム：マルチスレッドプログラミング</a>を参照ください。
+
 ***
 <h3>1.3　文字列クラスのミュータビリティとスレッドセーフティ</h3>
 <img src="../image/string_course.004.jpeg" width="500px"><br>
@@ -22,6 +24,7 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
 
 （<a href="https://docs.oracle.com/javase/jp/8/docs/api/java/lang/StringBuffer.html" target="_blank">Java 8 StringBuffer</a>より）<br>
 （実際に処理速度にあまり大きな差があるのかは不明です。）このようなトレードオフ（一方を追求すると一方を犠牲にせざるをえない状態）が発生するので、目的に合わせて使用するクラスを選択しましょう。
+
 ***
 <h3>1.4　String</h3>
 <img src="../image/string_course.005.jpeg" width="500px"><br>
@@ -45,6 +48,7 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
     assert(str.concat("B") == "AB")
   }
 ```
+
 ***
 <h3>1.5　StringBuffer/StringBuilder</h3>
 <img src="../image/string_course.006.jpeg" width="500px"><br>
@@ -193,6 +197,7 @@ java.lang.StringBuilderはjava.lang.StringBufferとAPIの互換性が保たれ�
     assert(str == "")
   }
 ```
+
 ***
 <h3>1.6　StringJoiner</h3>
 <img src="../image/string_course.012.jpeg" width="500px"><br>
@@ -224,6 +229,7 @@ StringJoinerの中身はStringBuilderです。
     assert(joiner.toString == "abc, cde, efg")
   }
 ```
+
 ***
 <h3>1.7　String.joinメソッド</h3>
 <img src="../image/string_course.013.jpeg" width="500px"><br>
@@ -257,6 +263,7 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
     assert(String.join(", ", iterable).mkString("[", "", "]") == "[abc, cde, efg]")
   }
 ```
+
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
 <img src="../image/string_course.014.jpeg" width="500px"><br>
@@ -299,6 +306,7 @@ PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字
         |123""".stripMargin.concat("\n"))
   }
 ```
+
 ***
 <h3>1.9　java.nio.Buffer</h3>
 <img src="../image/string_course.015.jpeg" width="500px"><br>
@@ -398,6 +406,7 @@ StringBuilder・StringBufferではcapacityを超えてCharを追加しようと�
     }
   }
 ```
+
 ***
 <h3>コラム：テレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターン</h3>
 生成に関するデザインパターンにはテレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターンなどがあります。
@@ -426,7 +435,7 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
 参考文献：
 <ul>
   <li><a href="https://twitter.github.io/scala_school/concurrency.html" target="_blank">Concurrency in Scala</a></li>
-  <li><a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target=_blank">Actors</a></li>
+  <li><a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target="_blank">Actors</a></li>
 </ul>
 
 ```scala
@@ -504,17 +513,20 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
   }
 ```
 処理の非同期化、並列化、分散化にはStreamや<a href="http://docs.scala-lang.org/ja/overviews/core/futures.html" target="_blank">FutureとPromise</a>、<a href="https://goo.gl/DVQPRc" target="_blank">OfferとBroker</a>、MapReduceなど他のアプローチがあります。また実装するためのライブラリもAkka系（<a href="https://github.com/akka/akka/tree/master/akka-actor" target="_blank">akka-actor</a>、<a href="https://github.com/akka/akka/tree/master/akka-stream" target="_blank">akka-stream</a>）、Scalaz系（<a href="https://github.com/scalaz/scalaz/tree/series/7.3.x/concurrent" target="_blank">scalaz-concurrent</a>）、Twitter系（<a href="https://github.com/twitter/finagle/tree/develop/finagle-stream" target="_blank">finagle-stream</a>、<a href="https://github.com/twitter/util/tree/develop/util-core/src/main/scala/com/twitter/util" target="_blank">FutureとPromise</a>、<a href="https://github.com/twitter/util/tree/develop/util-core/src/main/scala/com/twitter/concurrent" target="_blank">OfferとBroker</a>）、Web Application Frameworkの<a href="http://www.liftweb.net/" target="_blank">Lift</a>の<a href="https://github.com/lift/lift/tree/master/framework/lift-base/lift-actor" target="_blank">lift-actor</a>、<a href="http://hadoop.apache.org/" target="_blank">Apache Hadoop</a>、<a href="http://spark.apache.org/" target="_blank">Apache Spark</a>、<a href="http://storm.apache.org/" target="_blank">Apache Storm</a>、<a href="http://activemq.apache.org/" target="_blank">Apache ActiveMQ</a>、<a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>など多様に存在します。<br>
+
 ***
 <h3>コラム：可変長引数に関するのJava/Scala互換性</h3>
 Javaの可変長引数は配列型に変換され、Scalaの可変長引数はSeq型に変換されます。
 Javaの可変長引数を持つメソッドにScalaからArrayで値を渡したい場合は、Array型の引数arrayの後ろに```array : _*```のように型アノテーションをつける必要があります。
 Scalaの可変長引数を持つメソッドをJavaから使用する場合はJavaで使用するときと同様に配列で値を渡せます。
+
 ***
 <h3>コラム：コレクションに関するJava/Scala互換性</h3>
 ScalaからJavaのコレクションを呼び出したいとき、もしくはJavaからScalaのコレクションを呼び出したいとき、<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.JavaConverters$" target="_blank">scala.collection.JavaConverters</a>か<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.JavaConversions$" target="_blank">scala.collection.JavaConversions</a>を使用することでScalaとJavaのコレクションの相互変換のメソッドが置かれています。JavaConvertersは明示的な変換が必要ですが、JavaConversionsは暗黙的な変換がされるため、JavaConvertersの方が安全に使用できます。JavaConversionsは今後非推奨になりそうです。<br>
 参考文献：<br>
 <a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a><br>
 <a href="http://d.hatena.ne.jp/xuwei/20160327/1459108797" target="_blank">scala.collection.JavaConversionsが非推奨になるかもしれないらしい</a>
+
 ***
 <h3>コラム：java.util.Iteratorとjava.lang.Iterableの違い</h3>
 <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/Iterator.html" target="_blank">java.util.Iterator</a>はイテレータのインターフェースです。これを実装するとイテレータになります。<br>
