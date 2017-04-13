@@ -563,9 +563,10 @@ Scalaの可変長引数を持つメソッドをJavaから使用する場合はJa
 <h3>コラム：コレクションに関するJava/Scala互換性</h3>
 ScalaからJavaのコレクションを呼び出したいとき、もしくはJavaからScalaのコレクションを呼び出したいとき、<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.JavaConverters$" target="_blank">scala.collection.JavaConverters</a>か<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.JavaConversions$" target="_blank">scala.collection.JavaConversions</a>を使用することでScalaとJavaのコレクションの相互変換のメソッドが置かれています。JavaConvertersは明示的な変換が必要ですが、JavaConversionsは暗黙的な変換がされるため、JavaConvertersの方が安全に使用できます。JavaConversionsは今後非推奨になりそうです。<br>
 参考文献：<br>
-<a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a><br>
-<a href="http://d.hatena.ne.jp/xuwei/20160327/1459108797" target="_blank">scala.collection.JavaConversionsが非推奨になるかもしれないらしい</a>
-
+<ul>
+<li><a href="http://docs.scala-lang.org/ja/overviews/collections/conversions-between-java-and-scala-collections.html" target="_blank">Java と Scala 間のコレクションの変換</a></li>
+<li><a href="http://d.hatena.ne.jp/xuwei/20160327/1459108797" target="_blank">scala.collection.JavaConversionsが非推奨になるかもしれないらしい</a></li>
+</ul>
 ***
 <h3>コラム：java.util.Iteratorとjava.lang.Iterableの違い</h3>
 <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/Iterator.html" target="_blank">java.util.Iterator</a>はイテレータのインターフェースです。これを実装するとイテレータになります。<br>
