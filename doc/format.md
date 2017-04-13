@@ -1,13 +1,18 @@
 # 2.　フォーマット
+
 <img src="../image/string_course.016.jpeg" width="500px"><br>
+
 フォーマットとは、Stringで書かれた書式に値を埋め込みStringを生成する処理のことです。
 %から始まるprintfスタイルの書式は、
 printf、str.format、f補間子、String.format、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">Formatter</a>などで使用可能です。
 %から始まらない書式は、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/time/format/DateTimeFormatter.html" target="_blank">DateTimeFormatter</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/MessageFormat.html" target="_blank">MessageFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/NumberFormat.html" target="_blank">NumberFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/ChoiceFormat.html" target="_blank">ChoiceFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/DecimalFormat.html" target="_blank">DecimalFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/DateFormat.html" target="_blank">DateFormat</a>、<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/text/SimpleDateFormat.html" target="_blank">SimpleDateFormat</a>などがあります。
 printfスタイルの書式の定義は<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Formatter.html" target="_blank">java.util.FormatterクラスのJavadoc</a>で説明されます。
+
 ***
 <h3>2.1　Stringのformatメソッド</h3>
+
 <img src="../image/string_course.017.jpeg" width="500px"><br>
+
 Java由来のstaticなString.formatメソッドとScalaで使用可能な非staticなformatメソッドがあるが、staticなString.formatメソッドにはJavaとの互換性の問題が発生するため、Scalaでは非staticなformatメソッドを使用するべきでしょう。
 
 ```scala
@@ -18,6 +23,7 @@ Java由来のstaticなString.formatメソッドとScalaで使用可能な非stat
     assert(String.format("%d%%", 100.asInstanceOf[java.lang.Integer]) == "100%")
   }
 ```
+
 printfスタイルの書式の定義は膨大なので、代表的な書式についてのみサンプルコードにまとめます。
 
 ```scala
@@ -115,9 +121,12 @@ printfスタイルの書式の定義は膨大なので、代表的な書式に�
     printf("%h\n", new Object())
   }
 ```
+
 ***
 <h3>2.2　DateTimeFormatter</h3>
+
 <img src="../image/string_course.018.jpeg" width="500px"><br>
+
 DateTimeFormatterは日付・時刻に関するフォーマット及びバースの処理を扱うクラスです。
 タイムゾーン付きの日付・時間クラス<a href="http://docs.oracle.com/javase/jp/8/docs/api/java/time/ZonedDateTime.html" target="_blank">ZonedDateTime</a>クラスを入力しフォーマットしたStringを返したり、Stringを入力としてパースしZonedDateTimeクラスを出力することができます。
 String.formatではZonedDateTimeクラスではなくDateクラスを与えることでフォーマットすることができます。
@@ -143,9 +152,12 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     assert("%1$tY年%1$tm月%1$td日".format(date2) == "2016年01月01日")
   }
 ```
+
 ***
 <h3>2.3　DateFormatとSimpleDateFormat</h3>
+
 <img src="../image/string_course.019.jpeg" width="500px"><br>
+
 スレッドセーフティと処理速度の両点で勝っているDateTimeFormatterを使いましょう。日付、時刻、日付・時刻のparse/formatができます。getDateInstance（日付）、getTimeInstance（時刻）、getDateTimeInstance（日付・時刻）でインスタンスを生成します。SimpleDateFormatはDateTimeFormatterと同様のフォーマットでparse/formatできます。
 
 ```scala
@@ -171,9 +183,12 @@ SimpleDateFormatはスレッドアンセーフでありながらスレッドセ�
     println(simpleDateFormat.parse("292278994年8月229日（日）"))
   }
 ```
+
 ***
 <h3>2.4　NumberFormatとDecimalFormat</h3>
+
 <img src="../image/string_course.020.jpeg" width="500px"><br>
+
 NumberFormatは整数、通貨、%表記に関するformat/parseができます。getIntegerInstance（整数）、getCurrencyInstance（通貨）、getPercentInstance（%）でインスタンスを生成します。
 ロケールに合わせて通貨コードも取得できます。
 DecimalFormatはNumberFormatのgetIntegerInstanceです。
@@ -230,9 +245,12 @@ DecimalFormatはNumberFormatのgetIntegerInstanceです。
     assert(decimalFormat.parse("0.577") == 0.577)
   }
 ```
+
 ***
 <h3>2.5　ChoiceFormat</h3>
+
 <img src="../image/string_course.021.jpeg" width="500px"><br>
+
 値の範囲にラベルをつけて、parse/formatができます。
 
 ```scala
@@ -297,9 +315,12 @@ DecimalFormatはNumberFormatのgetIntegerInstanceです。
     assert(choiceFormat.parse("正の数") == ChoiceFormat.nextDouble(0D))
   }
 ```
+
 ***
 <h3>2.6　MessageFormat</h3>
+
 <img src="../image/string_course.022.jpeg" width="500px"><br>
+
 引数番号を指定して値を埋めるparse/formatができます。
 DateFormat、NumberFormat、DecimalFormat、ChoiceFormatで扱うフォーマットは全てMessageFormatで扱うことができます。
 
@@ -313,9 +334,12 @@ DateFormat、NumberFormat、DecimalFormat、ChoiceFormatで扱うフォーマッ
     assert(parsed(1) == "晴れ")
   }
 ```
+
 ***
 <h3>2.7　テンプレートエンジン</h3>
+
 <img src="../image/string_course.023.jpeg" width="500px"><br>
+
 Javaでフォーマットで複数行の雛形を作成したい場合、書式内に%nまたは\nを含めたワンライナーで書く必要があります。
 そのような書式はとても読みづらく可読性・保守性の観点からよくありません。
 この場合、<a href="http://velocity.apache.org/" target="_blank">Apache Velocity</a>や<a href="https://github.com/jknack/handlebars.java" target="_blank">Handlebars.java</a>などのようなテンプレートエンジンを用いることで複数行の雛形を作成し、値を埋め込むことができ、可読性・保守性が向上します。
@@ -325,6 +349,7 @@ XMLリテラルによるテンプレート処理については、<a href="#コ�
 
 ***
 <h3>コラム：XMLリテラルによるテンプレート処理</h3>
+
 XMLリテラルによってフォーマットや文字列補間子のように雛形に値を埋め込みStringを生成することができます。XML形式のStringとしてtoStringメソッドを用いて出力するならScala XMLの本来の使用目的の範囲内ですが、textメソッドによってテンプレート処理として使用するのは本来の使用目的の範囲外なのでお勧めはできません。
 
 ```scala
