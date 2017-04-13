@@ -1,11 +1,16 @@
 # 1.　ミュータビリティ
+
 <h3>1.1　ミュータビリティ</h3>
+
 <img src="../image/string_course.002.jpeg" width="500px"><br>
+
 ミュータビリティとは可変性・不変性を示す言葉です。ミュータブルは可変性を意味し、イミュータブルは固定性を意味します。変数がインスタンス化後に変更可能なクラスをミュータブルクラス、変更不可能なクラスをイミュータブルクラスと呼びます。コレクションのクラスではミュータブルは可変長、イミュータブルは固定長を意味します。<br>
 
 ***
 <h3>1.2　スレッドセーフティ</h3>
+
 <img src="../image/string_course.003.jpeg" width="500px"><br>
+
 スレッドセーフティとはマルチスレッド下でも問題なく動作するかどうかを示す言葉です。
 マルチスレッド下ではシングルスレッドで発生しない様々な問題が発生します。
 例えば、スレッドAとスレッドBが同一クラスを操作するとスレッドAが操作している変数vを、その操作が終わっていないにも関わらず、スレッドBが操作してしまい、スレッドAが想定している結果と違う値の変数vになってしまう場合があります。
@@ -15,7 +20,9 @@
 
 ***
 <h3>1.3　文字列クラスのミュータビリティとスレッドセーフティ</h3>
+
 <img src="../image/string_course.004.jpeg" width="500px"><br>
+
 Stringはイミュータブルクラスなので、インスタンス化後に操作可能な変数がないためスレッドセーフです。
 StringBuilderとStringBufferはミュータブルクラスです。StringBuilderはスレッドアンセーフですが、StringBufferはスレッドセーフです。
 一見するとイミュータブルをミュータブル、スレッドアンセーフよりスレッドセーフの方が優れていて、常にミュータブルでスレッドセーフなStringBufferクラスだけを存在すればいいのではと思うかもしれません。しかし、イミュータブルをミュータブルにするとクラスに載せるメソッドが増えメモリを多く使います。スレッドアンセーフからスレッドセーフにすると排他制御のためのオーバヘッドが発生します。
@@ -27,7 +34,9 @@ StringBuilderとStringBufferはミュータブルクラスです。StringBuilder
 
 ***
 <h3>1.4　String</h3>
+
 <img src="../image/string_course.005.jpeg" width="500px"><br>
+
 Stringはイミュータブル（固定長）でスレッドセーフな文字列クラスです。
 ＋メソッドやunionメソッドで文字列を結合するときはSeqLikeで<a href="http://www.scala-lang.org/api/current/index.html#scala.collection.generic.CanBuildFrom" target="_blank">CanBuildFrom</a>を用いてミュータブルなビルダークラスmutable.Builderを生成して文字列を結合し、新しいインスタンスを生成しています。(JavaではStringBuilderが内部処理で使用されます。)
 新しいインスタンスを生成する点はconcatメソッドでも同様です。
@@ -51,20 +60,32 @@ Stringはイミュータブル（固定長）でスレッドセーフな文字�
 
 ***
 <h3>1.5　StringBuffer/StringBuilder</h3>
+
 <img src="../image/string_course.006.jpeg" width="500px"><br>
+
 java.lang.StringBufferやjava.lang.StringBuilderはjava.lang.AbstractStringBuilderを継承しているため同じAPIが利用できます。
 Scalaで一般的に使うStringBuilderはjava.lang.StringBuilderではなくscala.collection.mutable.StringBuilderです。java.lang.StringBuilderはscala.collection.mutable.StringBuilderの内部で使用されているためjava.lang.StringBuilderと同じAPIが利用できます。<br>
+
 <img src="../image/string_course.007.jpeg" width="500px"><br>
+
 末尾に追加するappendやappendCodePointメソッドでStringの+メソッドで結合可能な型やコードポイントを結合することができます。Charを結合させるのが最も高速です。メソッドチェーンで記述できます。先頭に追加するprependメソッドはないですが、insertメソッドで先頭や好きな位置に挿入することが可能です。appendメソッドで末尾に追加してからreverseメソッドで結合した文字の順番を逆転させる方法もあります。toStringメソッドでStringに変換することができます。scala.collection.mutable.StringBuilderではresultメソッドでStringに変換できます。<br>
+
 <img src="../image/string_course.008.jpeg" width="500px"><br>
+
 capacityはCharを入れるための容量（Char数）です。コンストラクタからインスタンス生成時にcapacityを指定することができます。特に指定しない場合デフォルトコンストラクタによりcapacityは16に設定されます。インスタンス生成後にもしCharを入れすぎてcapacityを超えてもオーバーフローせずに自動的に新たに容量を増やします。新たに容量を獲得する処理がオーバーヘッドとして発生するので、capacityが不足すると処理速度が低下します。しかし、処理を高速化するために十分に容量を獲得してcapacityを大きく取りすぎるとメモリの領域を使い過ぎてしまいます。capacityを大きく取りすぎてメモリの領域を無駄に使用している場合はtrimToSizeメソッドで収容しているChar数=lengthにcapacityを揃えることができます。<br>
+
 <img src="../image/string_course.009.jpeg" width="500px"><br>
+
 delete(0, length)とsetLength(0)はlengthを0にして収容物を破棄します。capacityは変えません。scala.collection.mutable.StringBuilderのclearの中身はsetLength(0)です。delete(0, length)でもsetLength(0)/clearでも処理の結果は同じですが、setLength(0)/clearの方が一般に使用されているようです。setLength(0)/clearはポインタをずらしています。deleteメソッドはSystem.arraycopyメソッドを使用しています。<br>
+
 <img src="../image/string_course.010.jpeg" width="500px"><br>
+
 StringBufferはミュータブル（可変長）でスレッドセーフな文字列クラスです。
 全てのメソッドにsynchronized修飾子がついていて排他制御されています。
 java.io.StringWriterの中身です。<br>
+
 <img src="../image/string_course.011.jpeg" width="500px"><br>
+
 StringBuilderはミュータブル（可変長）でスレッドアンセーフな文字列クラスです。
 java.lang.StringBuilderはscala.collection.mutable.StringBuilderの中身です。
 java.lang.StringBuilderはjava.lang.StringBufferとAPIの互換性が保たれるように設計されています。
@@ -200,7 +221,9 @@ java.lang.StringBuilderはjava.lang.StringBufferとAPIの互換性が保たれ�
 
 ***
 <h3>1.6　StringJoiner</h3>
+
 <img src="../image/string_course.012.jpeg" width="500px"><br>
+
 StringJoinerはデリミタ（区切り文字）と任意で接頭辞・接尾辞を設定して、文字列を結合するクラスです。
 addメソッドで文字列を追加し、toStringでStringを出力するビルダークラスです。
 例えば、<a href="https://ja.wikipedia.org/wiki/Comma-Separated_Values" target="_blank">CSV、SSV、TSV</a>などを作成するときに有用です。
@@ -232,7 +255,9 @@ StringJoinerの中身はStringBuilderです。
 
 ***
 <h3>1.7　String.joinメソッド</h3>
+
 <img src="../image/string_course.013.jpeg" width="500px"><br>
+
 String.joinの中身はStringJoinerですが、接頭辞・接尾辞を与えることはできません。
 mkStringメソッドを組み合わせて使用することでStringJoiner相当のことができますが、mkStringメソッドの処理分だけ速度が遅くなるので素直にStringJoinerを使用することをお勧めします。<br>
 String.joinよりStringJoinerの方が高速であり、StringJoinerよりStringBuilderの方が高速だという報告が掲載されたブログの記事があります（<a href="http://d.hatena.ne.jp/nowokay/20140409" target="_blank">Java8時代の文字列連結まとめ</a>）。
@@ -266,7 +291,9 @@ String.joinはJavaの可変長引数メソッドとIterableを引数とするメ
 
 ***
 <h3>1.8　PrintWriter (StringWriter)/PrintStream (ByteArrayOutputStream)</h3>
+
 <img src="../image/string_course.014.jpeg" width="500px"><br>
+
 PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字列を生成する方法があります。PrintWriterを使用する方がPrintStreamを使用するより高速です。<br>
 参考文献：<br>
 <a href="http://www.ne.jp/asahi/hishidama/home/tech/java/string.html#PrintWriter" target="_blank">PrintWriter/PrintStream</a>
@@ -309,7 +336,9 @@ PrintWriterやPrintStreamのprint, println, printfメソッドを使って文字
 
 ***
 <h3>1.9　java.nio.Buffer</h3>
+
 <img src="../image/string_course.015.jpeg" width="500px"><br>
+
 java.nio.Bufferは主にBufferを継承したByteBuffer・CharBufferがエンコーダ・デコーダの内部で使用されます。
 StringBuilder・StringBufferではcapacityを超えてCharを追加しようとすると自動的にcapacityを増やしてくれますが、ByteBuffer・CharBufferではcapacityは増えずにオーバフローします。どの位置から読み込む/書き込むかというpositionとどの位置まで読み込める/書き込めるかというlimitを変化させながらデータを読み込んだり書き込んだりします。
 
@@ -409,20 +438,26 @@ StringBuilder・StringBufferではcapacityを超えてCharを追加しようと�
 
 ***
 <h3>コラム：テレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターン</h3>
+
 生成に関するデザインパターンにはテレスコーピングコンストラクタパターン・JavaBeansパターン・ビルダーパターンなどがあります。
 StringBufferやStringBuilderはビルダーパターンで設計されています。
+
 <h4>（１）テレスコーピングコンストラクタパターン</h4>
+
 生成に必須なパラメタを引数に与えるコンストラクタの他に、必須なパラメタに加え任意のパラメタを引数に与えるコンストラクタをクラスに持たせます。
 任意のパラメタ数が増えれば増えるだけコンストラクタ数が増加するため、良くないパターン（アンチパターン）と考えられる場合もありますが、クラスが持つ変数をコンストラクタの中でのみいじれるようにすることでスレッドセーフなイミュータブルクラスを作成することができます。
 テレスコーピングとは、望遠鏡の筒のようにはめ込むという意味です。
 パラメタをコンストラクタにはめ込む（テレスコープする）のでテレスコーピングコンストラクタパターンと呼ばれているのだと思います。
+
 <h4>（２）JavaBeansパターン</h4>
+
 引数なしのデフォルトコンストラクタにより生成し、setter/getterメソッドによって値の変更・取得を行います。
 Scalaには<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BeanProperty" target="_blank">@BeanProperty</a>や<a href="http://www.scala-lang.org/files/archive/api/current/index.html#scala.beans.BooleanBeanProperty" target="_blank">@BooleanBeanProperty</a>アノテーションでクラス内のvar変数fieldNameに注釈付けることでsetter/getterメソッド（setFieldName/getFieldName、@BooleanBeanPropertyの場合はgetFieldNameの代わりにisFieldName）を自動挿入します。
 JavaBeansパターンではsetterメソッドが必要なため必ずミュータブルクラスになります。
 JavaBeansとは、Javaで書かれた移植可能なプラットフォームに依存しないコンポーネントモデルであり、<a href="http://download.oracle.com/otndocs/jcp/7224-javabeans-1.01-fr-spec-oth-JSpec/" target="_blank">JavaBean仕様</a>に従うもののことを指します。
 
 <h4>（３）ビルダーパターン</h4>
+
 まず、生成に必須なパラメタを引数に与えるコンストラクタによりビルダークラスを生成します。
 次に、ビルダークラスにsetterメソッドで任意のパラメタを設定します。
 最後に、ビルダークラスのbuildメソッドにより、生成したいインスタンスを生成します。
@@ -431,11 +466,14 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
 
 ***
 <h3>コラム：マルチスレッドプログラミング</h3>
+
 マルチスレッドプログラミングにおいては、同じクラスを複数のスレッドが操作して目的通りに動作しないデータ競合が起こったり、デッドロックが起こってしまうといった危険がありスレッドセーフティを意識してプログラミングすることが大切です。そのためにどのように排他制御・非同期して、どのように同期するかについては様々なことを学ぶ必要があります。サンプルコードには変数の操作がsynchronizedされたクラスと３種類のマルチスレッド（１）Thread、（２）java.util.concurrent、（３）Actorの実装例を載せます。なお、サンプルコードではList型のコレクションクラスlistをfor文で回すとき、parメソッドによって処理を複数のプロセッサに分散化しています。<br>
+
 参考文献：
 <ul>
-  <li><a href="https://twitter.github.io/scala_school/concurrency.html" target="_blank">Concurrency in Scala</a></li>
-  <li><a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target="_blank">Actors</a></li>
+<li><a href="https://www.amazon.co.jp/gp/product/B016FHN04O/ref=as_li_tl?ie=UTF8&tag=ynupc-22&camp=247&creative=1211&linkCode=as2&creativeASIN=B016FHN04O&linkId=f102b98ea30a52892a99367c583341a2" target="_blank">小松正樹 (著) - Javaマルチスレッド入門: 並行処理の最新API対応（改訂第２版）</a></li>
+<li><a href="https://twitter.github.io/scala_school/concurrency.html" target="_blank">Concurrency in Scala</a></li>
+<li><a href="http://doc.akka.io/docs/akka/2.4.1/scala/actors.html" target="_blank">Actors</a></li>
 </ul>
 
 ```scala
@@ -512,6 +550,7 @@ StringBuffer/StringBuilderがビルダークラスで、buildメソッドはtoSt
     Await.result(system.whenTerminated, Duration.Inf)
   }
 ```
+
 処理の非同期化、並列化、分散化にはStreamや<a href="http://docs.scala-lang.org/ja/overviews/core/futures.html" target="_blank">FutureとPromise</a>、<a href="https://goo.gl/DVQPRc" target="_blank">OfferとBroker</a>、MapReduceなど他のアプローチがあります。また実装するためのライブラリもAkka系（<a href="https://github.com/akka/akka/tree/master/akka-actor" target="_blank">akka-actor</a>、<a href="https://github.com/akka/akka/tree/master/akka-stream" target="_blank">akka-stream</a>）、Scalaz系（<a href="https://github.com/scalaz/scalaz/tree/series/7.3.x/concurrent" target="_blank">scalaz-concurrent</a>）、Twitter系（<a href="https://github.com/twitter/finagle/tree/develop/finagle-stream" target="_blank">finagle-stream</a>、<a href="https://github.com/twitter/util/tree/develop/util-core/src/main/scala/com/twitter/util" target="_blank">FutureとPromise</a>、<a href="https://github.com/twitter/util/tree/develop/util-core/src/main/scala/com/twitter/concurrent" target="_blank">OfferとBroker</a>）、Web Application Frameworkの<a href="http://www.liftweb.net/" target="_blank">Lift</a>の<a href="https://github.com/lift/lift/tree/master/framework/lift-base/lift-actor" target="_blank">lift-actor</a>、<a href="http://hadoop.apache.org/" target="_blank">Apache Hadoop</a>、<a href="http://spark.apache.org/" target="_blank">Apache Spark</a>、<a href="http://storm.apache.org/" target="_blank">Apache Storm</a>、<a href="http://activemq.apache.org/" target="_blank">Apache ActiveMQ</a>、<a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a>など多様に存在します。<br>
 
 ***
