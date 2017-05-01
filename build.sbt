@@ -26,7 +26,7 @@ javacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-xml" % "1.0.6", //withSources() withJavadoc(),
-  "com.typesafe.akka" %% "akka-actor" % "2.5.0" withSources() withJavadoc(),
+  "com.typesafe.akka" %% "akka-actor" % "2.5.0", //withSources() withJavadoc(),
   "junit" % "junit" % "4.12" % Test, //withSources() withJavadoc(),
   "com.novocode" % "junit-interface" % "0.11" % Test, //withSources() withJavadoc(),
   "org.scalatest" %% "scalatest" % "3.0.1" % Test //withSources() withJavadoc()
