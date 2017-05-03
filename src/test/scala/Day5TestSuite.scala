@@ -622,7 +622,7 @@ class Day5TestSuite extends AssertionsForJUnit {
   private val objectExample: ObjectExample = new ObjectExample(-1)
 
   private class ThreadExample(name: String) extends Runnable {
-    def run() = {
+    override def run(): Unit = {
       Thread.sleep(1000L)
       objectExample.increment()
       val data: Int = objectExample.getData
@@ -697,7 +697,7 @@ class Day5TestSuite extends AssertionsForJUnit {
       builder.append('\n').append(line)
     }
 
-    assert(builder.deleteCharAt(0).result() ==
+    assert(builder.deleteCharAt(0).result ==
       """
         |123, abc, true
         |
