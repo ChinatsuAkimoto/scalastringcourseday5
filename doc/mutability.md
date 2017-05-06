@@ -115,7 +115,7 @@ java.lang.StringBuilderはjava.lang.StringBufferとAPIの互換性が保たれ�
         case 2 =>
           buffer.append(array(i))
           assert(buffer.capacity == 18)
-        case otherwise =>
+        case _ =>
           //Do nothing
       }
     }
